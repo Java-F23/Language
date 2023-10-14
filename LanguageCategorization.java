@@ -10,6 +10,11 @@ public class LanguageCategorization {
         languageCount = 0;
     }
 
+    public int GetCount()
+    {
+        return languageCount;
+    }
+
     // Method to add a language to the categorization
     public void addLanguage(Language language) {
         if (languageCount < MAX_LANGUAGES) {

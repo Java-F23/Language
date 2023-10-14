@@ -9,29 +9,35 @@ public class Main {
             LanguageCategorization categorization = new LanguageCategorization();
 
             // Create a learner
-            Learner learner = new Learner("LearnerName", "learner@example.com");
+            Learner learner = new Learner("Ella", "E45@gmail.com");
 
             // Create an administrator
-            Administrator administrator = new Administrator("AdminName", "admin@example.com");
+            Administrator administrator = new Administrator("John", "JohnDoe@gmail.com");
 
-            // Add a language
-            Language newLanguage = administrator.AddLanguage(categorization, "Test Language");
+            // Add languages
+            Language newLanguage = administrator.AddLanguage(categorization, "Japanese");
+            Language newLanguage1 = administrator.AddLanguage(categorization, "Chinese");
+            Language newLanguage2 = administrator.AddLanguage(categorization, "English");
+            Language newLanguage3 = administrator.AddLanguage(categorization, "Arabic");
+
+            newLanguage.addProficiencyLevel("N2");
 
             // Add a course
             administrator.AddCourse(categorization);
 
             // Add a course to favorites
-            Course favoriteCourse = new Course("Favorite Course", "Intermediate");
+            Course favoriteCourse = new Course(newLanguage.getName(), "N1");
             learner.addToFavorites(favoriteCourse);
 
             // Earn a certificate
-            Course completedCourse = new Course("Completed Course", "Advanced");
+            Course completedCourse = new Course("Completed Course", "N2");
             learner.completeCourse(completedCourse);
             learner.earnCertificate(completedCourse);
 
             // Search for languages by popularity
-            Language[] popularLanguages = learner.searchByPopularity(1, 5, categorization);
+            Language[] popularLanguages = learner.searchByPopularity(5, 9, categorization);
 
+            popularLanguages.toString();
             // Display learner's full report
             learner.displayFullReport(newLanguage);
 

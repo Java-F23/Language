@@ -10,8 +10,8 @@ public class Language {
     private int popularity; //like a rating from 1-10, rare - very popular
     private ArrayList<Course> courses;
 
-    // Constructor to initialize a Language object with a List(description for each proficiency level)
-    Language(String name, ArrayList<String> proficiencyLevels, String region,  String description, int popularity, ArrayList<String> DescriptionLevel) {//ArrayList<String> studyResources,
+    // Constructor to initialize a Language object with a defined ArrayList(description for each proficiency level)
+    Language(String name, ArrayList<String> proficiencyLevels, String region,  String description, int popularity, ArrayList<String> DescriptionLevel) {
         if (name == null || proficiencyLevels == null || region == null || DescriptionLevel == null) {
             throw new IllegalArgumentException("Null input values are not allowed.");
         }  //Null values will throw an exception
@@ -25,69 +25,63 @@ public class Language {
             throw new IllegalArgumentException("Popularity must be in the range of 1 to 10.");
         }
 
-        // Validate proficiency levels
-        if (proficiencyLevels == null || proficiencyLevels.isEmpty() || proficiencyLevels.size() > 3) {
-            throw new IllegalArgumentException("Proficiency levels must contain between 1 and 3 levels.");
+        // Validate number of proficiency levels
+        if (proficiencyLevels == null || proficiencyLevels.isEmpty()){
+            throw new IllegalArgumentException("There must be at least 1 proficiency level.");
         }
 
-       /* //Proficiency levels differ for each language
-        ArrayList<String> validProficiencyLevels = new ArrayList<>();
-        validProficiencyLevels.add("Beginner");
-        validProficiencyLevels.add("Intermediate");
-        validProficiencyLevels.add("Advanced");
-
-       for (String level : proficiencyLevels) {
-            if (!validProficiencyLevels.contains(level)) {
-                throw new IllegalArgumentException("Invalid proficiency level: " + level);
-            }
-        }*/
         this.proficiencyLevels = new ArrayList<>(proficiencyLevels);
 
         proficiencyLevelDescriptions = new ArrayList<>(proficiencyLevels.size());
         for (int i = 0; i < proficiencyLevels.size(); i++) {
             proficiencyLevelDescriptions.add(DescriptionLevel.get(i));
         }
-    /*Language(String name, List<String> proficiencyLevels, String region, List<String> studyResources, String description, int popularity) {
-        if (name == null || proficiencyLevels == null || region == null || studyResources == null) {
+    }
+
+    //In case proficiency level descriptions have not yet been written. They are initialized to a default value
+    Language(String name, ArrayList<String> proficiencyLevels, String region,  String description, int popularity) {
+        if (name == null || proficiencyLevels == null || region == null) {
             throw new IllegalArgumentException("Null input values are not allowed.");
         }  //Null values will throw an exception
-
+        this.courses = new ArrayList<Course>();
         this.name = name;
         this.region = region;
-        //this.proficiencyLevels = proficiencyLevels;
-
-        // Validate proficiency levels
-        if (proficiencyLevels == null || proficiencyLevels.isEmpty() || proficiencyLevels.size() > 3) {
-            throw new IllegalArgumentException("Proficiency levels must contain between 1 and 3 levels.");
-        }
-
-        List<String> validProficiencyLevels = Arrays.asList("Beginner", "Intermediate", "Advanced");
-        for (String level : proficiencyLevels) {
-            if (!validProficiencyLevels.contains(level)) {
-                throw new IllegalArgumentException("Invalid proficiency level: " + level);
-            }
-        }
-        this.proficiencyLevels = new ArrayList<>(proficiencyLevels); // Initialize with a mutable ArrayList
-
-        this.studyResources = studyResources;
         this.description = description;
-        if(popularity >= 1 && popularity <= 10)
+        if (popularity >= 1 && popularity <= 10)
             this.popularity = popularity;
         else {
             throw new IllegalArgumentException("Popularity must be in the range of 1 to 10.");
         }
 
-        proficiencyLevelDescriptions = new HashMap<>(); // Initialize the mapping
-
-        // Initialize proficiency level descriptions (assuming the order of proficiency levels corresponds)
-        for (int i = 0; i < proficiencyLevels.size(); i++) {
-            proficiencyLevelDescriptions.put(proficiencyLevels.get(i), "Description for " + proficiencyLevels.get(i));
+        // Validate number of proficiency levels
+        if (proficiencyLevels == null || proficiencyLevels.isEmpty()){ //|| proficiencyLevels.size() > 3) {
+            throw new IllegalArgumentException("There must be at least 1 proficiency level.");
         }
-    }*/
+
+        this.proficiencyLevels = new ArrayList<>(proficiencyLevels);
+
+        proficiencyLevelDescriptions = new ArrayList<>(proficiencyLevels.size());
+        for (int i = 0; i < proficiencyLevels.size(); i++) {
+            proficiencyLevelDescriptions.add("Description required");
+        }
     }
+
+
     // Getters and setters for the attributes
     public String getName() {
         return name;
+    }
+
+    public boolean VerifyLevel(String course)
+    {
+        for(int i=0; i< courses.size(); i++)
+        {
+            if(course == courses.get(i).getName())
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void setName(String name) {
@@ -140,7 +134,6 @@ public class Language {
                 "Name = " + name +
                 ", Proficiency Levels = " + proficiencyLevels +
                 ", Region = " + region +
-                //", Study Resources = " + studyResources +
                 ", Description = " + description + // Include description in the toString representation
                 ", Popularity Rating = " + popularity +
                 '}';
@@ -231,6 +224,17 @@ public class Language {
             }
         }
         return null; // Return null if no course is found for the given proficiency level
+    }
+
+    public void DisplayLevelsAndDescriptions()
+    {
+            System.out.println(this.name + ":");
+            for(int i=0; i<courses.size(); i++)
+            {
+                System.out.println(courses.get(i).getName());
+                System.out.println(courses.get(i).getProficiencyLevel());
+                System.out.println(courses.get(i).getProficiencyLevelDesc(courses.get(i).getProficiencyLevel(), this));
+            }
     }
 
 }

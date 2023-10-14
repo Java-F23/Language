@@ -1,5 +1,6 @@
 import javax.naming.Name;
 import java.util.ArrayList;
+import java. util. Scanner;
 
 public class Learner {
     private String name;
@@ -15,11 +16,12 @@ public class Learner {
     public Learner(String name, String email) {
         this.name = name;
         this.email = email;
+        this.current = null;
         this.favorites = new ArrayList<>();
         this.coursesDone = new ArrayList<>();
         this.coursesInProgress = new ArrayList<>();
         this.certificatesEarned = new ArrayList<>();
-        //edit those to be whatever the learner has finished, or whatever courses will still be done
+        //those are the courses the learner has finished, or whatever courses will still be done
         this.upcomingCourses = new ArrayList<>();
         this.pastCourses = new ArrayList<>();
     }
@@ -39,6 +41,39 @@ public class Learner {
         return certificatesEarned;
     }
 
+    public void Enroll(LanguageCategorization categorization)
+    {
+        System.out.println("Which language would you like to learn?");
+        Scanner myobj = new Scanner(System.in);
+        String LangName = myobj.nextLine();
+        int index = -1;
+        Language [] temp = categorization.getAvailableLanguages();
+        for(int i=0; i< categorization.GetCount(); i++)
+        {
+            if(LangName == temp[i].getName()) {
+                System.out.println("Language is available!");
+                index = i;
+            }
+            else throw new IllegalArgumentException("The language was not found");
+        }
+
+        System.out.println("Which course would you like to enroll in? (enter course name)");
+        temp[index].DisplayLevelsAndDescriptions();
+
+        myobj = new Scanner(System.in);
+        String CourseName = myobj.nextLine();
+
+        if(temp[index].VerifyLevel(CourseName))
+        {
+            int k = temp[index].getCourses().indexOf(CourseName);
+            Course e = temp[index].getCourses().get(k);
+            coursesInProgress.add(e);
+            System.out.println("You've successfully enrolled in the " + e.getName() + " course for the " + e.getProficiencyLevel());
+        }
+        else System.out.println("The course you have entered has not been included in the list. Please re-enroll or select a different course.");
+
+    }
+
     public ArrayList<Course> getFavorites()
     {
         return favorites;
@@ -53,9 +88,18 @@ public class Learner {
     public void earnCertificate(Course course) {
         if (coursesDone.contains(course)) {
             certificatesEarned.add(course.getName());
+            GenerateCertificate(course);
         }
     }
+
+    public void GenerateCertificate(Course course)
+    {
+        System.out.println("Congratulations " + name + "!");
+        System.out.println("You've completed the " + course.getName() + " level " + course.getProficiencyLevel());
+    }
+
     public void completeCourse(Course course) {
+        coursesDone.add(course);
         coursesInProgress.remove(course);
     }
 
