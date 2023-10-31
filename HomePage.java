@@ -17,7 +17,8 @@
                 protected void paintComponent(Graphics g) {
                     super.paintComponent(g);
                     // Load and display the background image
-                    ImageIcon backgroundImage = new ImageIcon("C:/Users/abdel/Downloads/fa845d1a-c5a8-46eb-a29b-cffea7bc9b69 (1).jpg");
+                    //C:/Users/abdel/Downloads/fa845d1a-c5a8-46eb-a29b-cffea7bc9b69 (1).jpg
+                    ImageIcon backgroundImage = new ImageIcon("");//C:/Users/abdel/Downloads/fa845d1a-c5a8-46eb-a29b-cffea7bc9b69 (1).jpg");
                     g.drawImage(backgroundImage.getImage(), 0, 0, getWidth(), getHeight(), this);
                 }
             };
@@ -100,8 +101,57 @@
                  optionsPage.setVisible(true);
                 }
             });
+//Another test case
+            ArrayList<String> pL5 = new ArrayList<>();
+            pL5.add("Beginner");
+            pL5.add("Intermediate");
+            Language engl= new Language("English", pL5, "North America", "Great lang to start with!", 5);
+            ArrayList<String> pL8 = new ArrayList<>();
+            pL8.add("N1");
+            pL8.add("N2");
+            Language Chin= new Language("Chinese", pL8, "Asia", "Very complex", 9);
 
+            LanguageCategorization lSample2 = new LanguageCategorization();
+            lSample2.addLanguage(engl);
+            lSample2.addLanguage(Chin);
 
+            languageButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    LanguageOptionsPage optionsPage = new LanguageOptionsPage(lSample2);
+                    optionsPage.setVisible(true);
+                }
+            });
+
+            signInButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // Open the Sign In window
+                    SwingUtilities.invokeLater(() -> {
+                        new SignIn();
+                    });
+                }
+            });
+
+            signUpButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // Open the Sign Up window
+                    SwingUtilities.invokeLater(() -> {
+                        new SignUp();
+                    });
+                }
+            });
+
+            AdminB.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // Open the Sign Up window
+                    SwingUtilities.invokeLater(() -> {
+                        new AdminSignIn();
+                    });
+                }
+            });
 
 
             // Set buttons position (left and vertical)
