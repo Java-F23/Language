@@ -128,7 +128,7 @@
                 public void actionPerformed(ActionEvent e) {
                     // Open the Sign In window
                     SwingUtilities.invokeLater(() -> {
-                        new SignIn();
+                        new SignIn(lSample);
                     });
                 }
             });
@@ -138,7 +138,7 @@
                 public void actionPerformed(ActionEvent e) {
                     // Open the Sign Up window
                     SwingUtilities.invokeLater(() -> {
-                        new SignUp();
+                        new SignUp(lSample);
                     });
                 }
             });
@@ -148,11 +148,10 @@
                 public void actionPerformed(ActionEvent e) {
                     // Open the Sign Up window
                     SwingUtilities.invokeLater(() -> {
-                        new AdminSignIn();
+                        new AdminSignIn(lSample);
                     });
                 }
             });
-
 
             // Set buttons position (left and vertical)
             constraints.gridx = 0;

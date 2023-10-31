@@ -10,21 +10,24 @@ public class AdminSignIn extends JFrame {
     private JTextField emailField;
     private JPasswordField passwordField;
 
-    public AdminSignIn() {
+    public AdminSignIn(LanguageCategorization cat) {
         setTitle("Sign In");
-        setSize(400, 150);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(500, 300);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLayout(new GridLayout(3, 2));
 
         // Labels
         JLabel emailLabel = new JLabel("Email:");
         JLabel passwordLabel = new JLabel("Password:");
 
+
+
         // Text fields and password field
         emailField = new JTextField(20);
         passwordField = new JPasswordField(20);
         passwordField.setEchoChar('\u2022'); // Unicode for bullet (black dot)
-
+        //Temporary, until I implement files into everything
+        Administrator adm = new Administrator("Nina", emailField.getText());
         // Add components to the frame
         add(emailLabel);
         add(emailField);
@@ -34,6 +37,8 @@ public class AdminSignIn extends JFrame {
         // Create a button for sign-in
         JButton signInButton = new JButton("Sign In");
         add(signInButton);
+        JButton actions = new JButton("View Options");
+        add(actions);
 
         signInButton.addActionListener(new ActionListener() {
             @Override
@@ -47,6 +52,13 @@ public class AdminSignIn extends JFrame {
                 } else {
                     JOptionPane.showMessageDialog(null, "Sign in failed. Please check your credentials.");
                 }
+            }
+        });
+        actions.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AdminOptions Op = new AdminOptions(adm, cat);
+                Op.setVisible(true);
             }
         });
 
@@ -76,9 +88,9 @@ public class AdminSignIn extends JFrame {
         return false; // Sign in failed
     }
 
-    public static void main(String[] args) {
+  /*  public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             new SignIn();
         });
-    }
+    }*/
 }

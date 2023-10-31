@@ -23,7 +23,7 @@ public class Main {
             newLanguage.addProficiencyLevel("N2");
 
             // Add a course
-            administrator.AddCourse(categorization);
+            //administrator.AddCourse(categorization);
 
             // Add a course to favorites
             Course favoriteCourse = new Course(newLanguage.getName(), "N1");

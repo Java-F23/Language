@@ -63,10 +63,10 @@ public class SignUp extends JFrame {
     private JTextField emailField, mobileField, roleField;
     private JPasswordField passwordField;
 
-    public SignUp() {
+    public SignUp(LanguageCategorization cat) {
             setTitle("Sign Up");
-            setSize(400, 200);
-            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            setSize(500, 500);
+            setDefaultCloseOperation(DISPOSE_ON_CLOSE);
             setLayout(new GridLayout(6, 2));
 
             // Labels
@@ -106,6 +106,17 @@ public class SignUp extends JFrame {
             // Create a button for submission
             JButton signUpButton = new JButton("Sign Up");
             add(signUpButton);
+            JButton Enroll = new JButton("Enroll Now!");
+
+        Enroll.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                EnrollmentPage enroll_ = new EnrollmentPage(cat);
+                enroll_.setVisible(true);
+            }
+        });
+
+
 
             signUpButton.addActionListener(new ActionListener() {
                 @Override
@@ -165,9 +176,9 @@ public class SignUp extends JFrame {
     }
 
 
-    public static void main(String[] args) {
+   /* public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             new SignUp();
         });
-    }
+    }*/
 }

@@ -10,16 +10,13 @@ public class Administrator {
         this.Email = Email;
     }
 
-    public void AddCourse(LanguageCategorization categorization) {
-        System.out.println("Enter Language you'd like to add the course for:");
-        Scanner myObj = new Scanner(System.in);
-        String langName = myObj.nextLine();
+    public void AddCourse(LanguageCategorization categorization, String LangName, String CourseName, String level) {
 
         Language language = null;
 
         // Check if the language exists in the categorization
         for (Language lang : categorization.getAvailableLanguages()) {
-            if (lang.getName().equals(langName)) {
+            if (lang.getName().equals(LangName)) {
                 language = lang;
                 break;
             }
@@ -27,50 +24,20 @@ public class Administrator {
 
         if (language == null) {
             // Language doesn't exist, add a new language
-            language = AddLanguage(categorization, langName);
+            language = AddLanguage(categorization, LangName);
         }
 
-        // Continue adding details for the new course
-        System.out.println("Enter Course Name:");
-        myObj = new Scanner(System.in);
-        String courseName = myObj.nextLine();
-
-        System.out.println("Enter proficiency level:");
-        myObj = new Scanner(System.in);
-        String level = myObj.nextLine();
-
-        Course newCourse = new Course(courseName, level);
-
-        System.out.println("Would you like to add materials for the course right now? (Enter y or n)");
-        myObj = new Scanner(System.in);
-        String addMaterials = myObj.nextLine();
-
-        if (addMaterials.equalsIgnoreCase("y")) {
-            System.out.println("Which one would you like to add sources for? (Books, Videos, Exercises)");
-            myObj = new Scanner(System.in);
-            String category = myObj.nextLine();
-
-            if (category.equalsIgnoreCase("Books")) {
-                System.out.println("Please enter book title:");
-                myObj = new Scanner(System.in);
-                String book = myObj.nextLine();
-                newCourse.addBook(book);
-            } else if (category.equalsIgnoreCase("Videos")) {
-                System.out.println("Please enter link of video:");
-                myObj = new Scanner(System.in);
-                String link = myObj.nextLine();
-                newCourse.addVideo(link);
-            } else if (category.equalsIgnoreCase("Exercises")) {
-                System.out.println("Please enter exercise title:");
-                myObj = new Scanner(System.in);
-                String exercise = myObj.nextLine();
-                newCourse.addExercise(exercise);
-            }
-        }
-
-        // Add the new course to the language
+        Course newCourse = new Course(CourseName, level);
         language.addCourse(newCourse);
     }
+        public void AddMaterials (Language language, Course newCourse, ArrayList<String> Books, ArrayList<String> Videos, ArrayList<String> Exercises) {
+                for (String book : Books)
+                    newCourse.addBook(book);
+                for(String link : Videos)
+                    newCourse.addVideo(link);
+               for(String exercise : Exercises)
+                    newCourse.addExercise(exercise);
+        }
 
     // Add a new language
     public Language AddLanguage(LanguageCategorization categorization, String langName) {

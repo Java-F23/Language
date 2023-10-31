@@ -10,10 +10,10 @@ public class SignIn extends JFrame {
     private JTextField emailField;
     private JPasswordField passwordField;
 
-    public SignIn() {
+    public SignIn(LanguageCategorization cat) {
             setTitle("Sign In");
-            setSize(400, 150);
-            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            setSize(500, 300);
+            setDefaultCloseOperation(DISPOSE_ON_CLOSE);
             setLayout(new GridLayout(3, 2));
 
             // Labels
@@ -34,6 +34,9 @@ public class SignIn extends JFrame {
             // Create a button for sign-in
             JButton signInButton = new JButton("Sign In");
             add(signInButton);
+            JButton Enroll = new JButton("Enroll?");
+            add(Enroll);
+
 
             signInButton.addActionListener(new ActionListener() {
                 @Override
@@ -49,6 +52,15 @@ public class SignIn extends JFrame {
                     }
                 }
             });
+
+
+        Enroll.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                EnrollmentPage enroll_ = new EnrollmentPage(cat);
+                enroll_.setVisible(true);
+            }
+        });
 
             // Display the frame
             pack();
@@ -76,9 +88,9 @@ public class SignIn extends JFrame {
         return false; // Sign in failed
     }
 
-    public static void main(String[] args) {
+  /*  public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             new SignIn();
         });
-    }
+    }*/
 }
