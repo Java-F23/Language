@@ -30,6 +30,7 @@ public class AdminOptions extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 // Implement the functionality for viewing learner data
                 // You can open a new window or dialog for this option
+                //Can only be done when files are implemented
             }
         });
         buttonPanel.add(viewLearnerDataButton);
@@ -39,8 +40,8 @@ public class AdminOptions extends JFrame {
         addLanguageButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Implement the functionality for adding a new language
-                // You can open a new window or dialog for this option
+                AdminAddLanguage AddLanguagePage = new AdminAddLanguage(cat, adm);
+                AddLanguagePage.setVisible(true);
             }
         });
         buttonPanel.add(addLanguageButton);
@@ -51,6 +52,7 @@ public class AdminOptions extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 AddCourseMaterialsFrame a = new AddCourseMaterialsFrame(adm, cat);
+                a.setVisible(true);
             }
         });
         buttonPanel.add(addCourseButton);

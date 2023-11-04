@@ -9,6 +9,7 @@ public class LanguageOptionsPage extends JFrame {
         setTitle("Language Options");
         setSize(500, 500);
         setLocationRelativeTo(null);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
@@ -45,9 +46,9 @@ public class LanguageOptionsPage extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String input = textField.getText();
 
-                ArrayList<Language> filteredLanguages = new ArrayList<>(categorization.filterByLanguage(input));
+                Language [] filteredLanguages = categorization.filterByLanguage(input);
 
-                if (filteredLanguages.isEmpty()) {
+                if (filteredLanguages.length == 0) {
                     resultTextArea.setText("No languages found for the specified name.");
                 } else {
                     StringBuilder resultText = new StringBuilder("Filtered Languages:\n");

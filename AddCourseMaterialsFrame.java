@@ -77,10 +77,10 @@ public class AddCourseMaterialsFrame extends JFrame {
                 String exercises = exercisesField.getText();
 
                 // Check if the language exists
-                ArrayList<Language> filteredLanguages = categorization.filterByLanguage(langName);
-                if (!filteredLanguages.isEmpty()) {
+                Language [] filteredLanguages = categorization.filterByLanguage(langName);
+                if (filteredLanguages.length > 0) {
                     // Language exists, add course and materials
-                    Language language = filteredLanguages.get(0);
+                    Language language = filteredLanguages[0];
                     Course newCourse = new Course(courseName, level);
 
                     // Convert materials to ArrayLists
@@ -110,7 +110,7 @@ public class AddCourseMaterialsFrame extends JFrame {
         constraints.insets = new Insets(10, 0, 0, 0); // Add space between buttons and label
         constraints.fill = GridBagConstraints.HORIZONTAL;
 
-        contentPanel.add(langNamePanel, constraints);
+       contentPanel.add(langNamePanel, constraints);
         constraints.gridy = 3;
         contentPanel.add(courseNamePanel, constraints);
         constraints.gridy = 6;

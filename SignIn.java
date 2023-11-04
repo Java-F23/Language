@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 //Part 3 Q 2
 public class SignIn extends JFrame {
+    Learner learner;
     private JTextField emailField;
     private JPasswordField passwordField;
 
@@ -57,7 +58,7 @@ public class SignIn extends JFrame {
         Enroll.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                EnrollmentPage enroll_ = new EnrollmentPage(cat);
+                EnrollmentPage enroll_ = new EnrollmentPage(cat, learner);
                 enroll_.setVisible(true);
             }
         });

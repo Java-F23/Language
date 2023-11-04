@@ -1,10 +1,9 @@
-import javax.naming.Name;
 import java.util.ArrayList;
-import java. util. Scanner;
 
 public class Learner {
-    private String name;
+ //   private String name;
     private String email;
+    private String password;
     private ArrayList<Course> favorites;
     private Course current;
     private ArrayList<Course> coursesDone;
@@ -13,8 +12,8 @@ public class Learner {
     private ArrayList<Course> upcomingCourses;
     private ArrayList<Course> pastCourses;
 
-    public Learner(String name, String email) {
-        this.name = name;
+    public Learner(String email, String password) {
+        this.password = password;
         this.email = email;
         this.current = null;
         this.favorites = new ArrayList<>();
@@ -26,10 +25,10 @@ public class Learner {
         this.pastCourses = new ArrayList<>();
     }
 
-    public String getName()
-    {
-        return name;
-    }
+    //public String getName()
+    //{
+     //   return name;
+   // }
 
     public String getEmail()
     {
@@ -41,34 +40,23 @@ public class Learner {
         return certificatesEarned;
     }
 
-    public void Enroll(LanguageCategorization categorization)
+    public void Enroll(LanguageCategorization categorization, String LangName, String CourseName)
     {
-        System.out.println("Which language would you like to learn?");
-        Scanner myobj = new Scanner(System.in);
-        String LangName = myobj.nextLine();
         int index = -1;
         Language [] temp = categorization.getAvailableLanguages();
         for(int i=0; i< categorization.GetCount(); i++)
         {
             if(LangName == temp[i].getName()) {
-                System.out.println("Language is available!");
                 index = i;
             }
             else throw new IllegalArgumentException("The language was not found");
         }
-
-        System.out.println("Which course would you like to enroll in? (enter course name)");
-        temp[index].DisplayLevelsAndDescriptions();
-
-        myobj = new Scanner(System.in);
-        String CourseName = myobj.nextLine();
 
         if(temp[index].VerifyLevel(CourseName))
         {
             int k = temp[index].getCourses().indexOf(CourseName);
             Course e = temp[index].getCourses().get(k);
             coursesInProgress.add(e);
-            System.out.println("You've successfully enrolled in the " + e.getName() + " course for the " + e.getProficiencyLevel());
         }
         else System.out.println("The course you have entered has not been included in the list. Please re-enroll or select a different course.");
 
@@ -88,15 +76,15 @@ public class Learner {
     public void earnCertificate(Course course) {
         if (coursesDone.contains(course)) {
             certificatesEarned.add(course.getName());
-            GenerateCertificate(course);
+            //GenerateCertificate(course);
         }
     }
 
-    public void GenerateCertificate(Course course)
-    {
-        System.out.println("Congratulations " + name + "!");
-        System.out.println("You've completed the " + course.getName() + " level " + course.getProficiencyLevel());
-    }
+//    public void GenerateCertificate(Course course)
+//    {
+//        System.out.println("Congratulations " + name + "!");
+//        System.out.println("You've completed the " + course.getName() + " level " + course.getProficiencyLevel());
+//    }
 
     public void completeCourse(Course course) {
         coursesDone.add(course);
@@ -122,9 +110,9 @@ public class Learner {
 
     // Search for a specific language and proficiency level, return corresponding course if available
     public Course searchLanguageAndProficiency(String languageName, String proficiencyLevel, LanguageCategorization categorization) {
-        ArrayList<Language> filteredLanguages = categorization.filterByLanguageAndProficiency(languageName, proficiencyLevel);
-        if (!filteredLanguages.isEmpty()) {
-            Language language = filteredLanguages.get(0);
+        Language [] filteredLanguages = categorization.filterByLanguageAndProficiency(languageName, proficiencyLevel);
+        if (filteredLanguages.length > 0) {
+            Language language = filteredLanguages[0];
             return language.getCourseByProficiency(proficiencyLevel);
         }
         return null;
@@ -132,9 +120,9 @@ public class Learner {
 
     // Search for a specific language, return its available courses
     public ArrayList<Course> searchLanguage(String languageName, LanguageCategorization categorization) {
-        ArrayList<Language> filteredLanguages = categorization.filterByLanguage(languageName);
-        if (!filteredLanguages.isEmpty()) {
-            Language language = filteredLanguages.get(0);
+        Language [] filteredLanguages = categorization.filterByLanguage(languageName);
+        if (filteredLanguages.length > 0) {
+            Language language = filteredLanguages[0];
             return language.getCourses();
         }
         return new ArrayList<>();
@@ -148,7 +136,7 @@ public class Learner {
 
         // Method to display a full learner report
         public void displayFullReport(Language lang) {
-            System.out.println("Learner Name: " + name);
+            //System.out.println("Learner Name: " + name);
             System.out.println("Learner Email: " + email);
 
             // View favorite courses

@@ -54,11 +54,16 @@ public class AdminSignIn extends JFrame {
                 }
             }
         });
+
+        String str = String.valueOf(passwordField.getPassword());
+
         actions.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                AdminOptions Op = new AdminOptions(adm, cat);
-                Op.setVisible(true);
+                if(isSignInSuccessful(emailField.getText(),str)) {
+                    AdminOptions Op = new AdminOptions(adm, cat);
+                    Op.setVisible(true);
+                }
             }
         });
 
@@ -87,10 +92,4 @@ public class AdminSignIn extends JFrame {
         }
         return false; // Sign in failed
     }
-
-  /*  public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            new SignIn();
-        });
-    }*/
 }

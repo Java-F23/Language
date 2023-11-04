@@ -130,26 +130,40 @@ public class LanguageCategorization {
         return result;
     }
 
-    public ArrayList<Language> filterByLanguage(String languageName) {
-        ArrayList<Language> filteredLanguages = new ArrayList<>();
-        for (Language language : availableLanguages) {
-            if (language.getName().equalsIgnoreCase(languageName)) {
-                filteredLanguages.add(language);
+    public Language[] filterByLanguage(String languageName) {
+        Language[] filteredLanguages = new Language[MAX_LANGUAGES];
+        int filteredCount = 0;
+
+        for (int i = 0; i < languageCount; i++) {
+            Language language = availableLanguages[i];
+            if (languageName != null && language.getName().equalsIgnoreCase(languageName)) {
+                filteredLanguages[filteredCount] = language;
+                filteredCount++;
             }
         }
-        return filteredLanguages;
+
+        Language[] result = new Language[filteredCount];
+        System.arraycopy(filteredLanguages, 0, result, 0, filteredCount);
+        return result;
     }
 
-    public ArrayList<Language> filterByLanguageAndProficiency(String languageName, String proficiencyLevel) {
-        ArrayList<Language> filteredLanguages = new ArrayList<>();
-        for (Language language : availableLanguages) {
-            if (language.getName().equalsIgnoreCase(languageName)) {
-                if (language.getProficiencyLevels().contains(proficiencyLevel)) {
-                    filteredLanguages.add(language);
-                }
+    public Language[] filterByLanguageAndProficiency(String languageName, String proficiencyLevel) {
+        Language[] filteredLanguages = new Language[MAX_LANGUAGES];
+        int filteredCount = 0;
+
+        for (int i = 0; i < languageCount; i++) {
+            Language language = availableLanguages[i];
+            if (languageName != null && language.getName().equalsIgnoreCase(languageName) &&
+                    proficiencyLevel != null && language.getProficiencyLevels().contains(proficiencyLevel)) {
+                filteredLanguages[filteredCount] = language;
+                filteredCount++;
             }
         }
-        return filteredLanguages;
+
+        Language[] result = new Language[filteredCount];
+        System.arraycopy(filteredLanguages, 0, result, 0, filteredCount);
+        return result;
     }
+
 
 }

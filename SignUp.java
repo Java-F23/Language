@@ -60,6 +60,7 @@ import java.io.IOException;
 import java.util.Random;
 //Part 1 q2
 public class SignUp extends JFrame {
+    Learner learner;
     private JTextField emailField, mobileField, roleField;
     private JPasswordField passwordField;
 
@@ -111,7 +112,7 @@ public class SignUp extends JFrame {
         Enroll.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                EnrollmentPage enroll_ = new EnrollmentPage(cat);
+                EnrollmentPage enroll_ = new EnrollmentPage(cat, learner);
                 enroll_.setVisible(true);
             }
         });
@@ -133,6 +134,7 @@ public class SignUp extends JFrame {
                         // Save the information to a CSV file
                         saveToCSV(email, mobile, role, new String(password));
                         JOptionPane.showMessageDialog(null, "Sign up successful.");
+                        learner = new Learner(emailField.getText(), new String(passwordField.getPassword()));
                     }
                 }
             });
@@ -175,10 +177,4 @@ public class SignUp extends JFrame {
         }
     }
 
-
-   /* public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            new SignUp();
-        });
-    }*/
 }

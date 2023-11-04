@@ -21,11 +21,11 @@ public class Administrator {
                 break;
             }
         }
-
+/*
         if (language == null) {
             // Language doesn't exist, add a new language
             language = AddLanguage(categorization, LangName);
-        }
+        }*/
 
         Course newCourse = new Course(CourseName, level);
         language.addCourse(newCourse);
@@ -37,48 +37,19 @@ public class Administrator {
                     newCourse.addVideo(link);
                for(String exercise : Exercises)
                     newCourse.addExercise(exercise);
+               language.addCourse(newCourse);
         }
 
     // Add a new language
-    public Language AddLanguage(LanguageCategorization categorization, String langName) {
-        System.out.println("Adding a new language: " + langName);
-        System.out.println("Enter description for language:");
-        Scanner myObj = new Scanner(System.in);
-        String description = myObj.nextLine();
+    public Language AddLanguage(LanguageCategorization categorization, String langName, String region, String description, String popularity, ArrayList<String> ProficiencyLevels, ArrayList<String> proficiencyLevelDescriptions) {
 
-        System.out.println("How many proficiency levels would you like to add?");
-        myObj = new Scanner(System.in);
-        int num_of_levels = myObj.nextInt();
-
-        ArrayList<String> proficiencyLevels = new ArrayList<>();
-        ArrayList<String> proficiencyLevelDescriptions = new ArrayList<>();
-
-        System.out.println("Please add a name and description for each proficiency level (Beginner, Intermediate, Advanced):");
-        for (int i = 0; i < num_of_levels; i++) {
-            myObj = new Scanner(System.in);
-            proficiencyLevels.add(myObj.nextLine());
-
-            System.out.println("Description for " + proficiencyLevels.get(i) + ":");
-            myObj = new Scanner(System.in);
-            proficiencyLevelDescriptions.add(myObj.nextLine());
-        }
-
-        System.out.println("Enter the popularity of the Language from a scale of 1-10 (least-most):");
-        myObj = new Scanner(System.in);
-        int popularity = myObj.nextInt();
-
-        // Get region information
-        System.out.println("Enter the region for the language:");
-        myObj = new Scanner(System.in);
-        String region = myObj.nextLine();
-       // Language(String name, ArrayList<String> proficiencyLevels, String region, ArrayList<String> studyResources, String description, int popularity, ArrayList<String> DescriptionLevel) {
-
-        Language newLanguage = new Language(langName, proficiencyLevels, region, description, popularity, proficiencyLevelDescriptions);
+        Language newLanguage = new Language(langName, ProficiencyLevels, region, description, Integer.parseInt(popularity), proficiencyLevelDescriptions);
         categorization.addLanguage(newLanguage);
 
         return newLanguage;
     }
-
+/*
+Will be used as a template for next sprint's functionality
     public void viewLearnerData(Learner learner, Language lang) {
         System.out.println("Learner Name: " + learner.getName());
         System.out.println("Learner Email: " + learner.getEmail());
@@ -121,6 +92,6 @@ public class Administrator {
         }
     }
 
-
+*/
 
 }

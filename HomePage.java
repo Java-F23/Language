@@ -5,7 +5,7 @@
     import java.util.ArrayList;
 
     public class HomePage extends JFrame {
-        public HomePage() {
+        public HomePage(LanguageCategorization cat) {
             setTitle("Home Page");
             setSize(800, 800);
             setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -18,7 +18,8 @@
                     super.paintComponent(g);
                     // Load and display the background image
                     //C:/Users/abdel/Downloads/fa845d1a-c5a8-46eb-a29b-cffea7bc9b69 (1).jpg
-                    ImageIcon backgroundImage = new ImageIcon("");//C:/Users/abdel/Downloads/fa845d1a-c5a8-46eb-a29b-cffea7bc9b69 (1).jpg");
+
+                    ImageIcon backgroundImage = new ImageIcon("C:\\Users\\abdel\\Downloads\\image (17).png");//C:/Users/abdel/Downloads/fa845d1a-c5a8-46eb-a29b-cffea7bc9b69 (1).jpg");
                     g.drawImage(backgroundImage.getImage(), 0, 0, getWidth(), getHeight(), this);
                 }
             };
@@ -37,8 +38,9 @@
 
             // Sign In and Sign Up buttons
             JPanel buttonsPanel = new JPanel();
-            JButton signInButton = new JButton("Sign In");
-            JButton signUpButton = new JButton("Sign Up");
+            CustomButton  signInButton = new CustomButton("Sign In", Color.WHITE); //Orange
+            CustomButton  signUpButton= new CustomButton("Sign Up", Color.WHITE); //Orange
+
             buttonsPanel.add(signInButton);
             buttonsPanel.add(signUpButton);
            // topPanel.add(buttonsPanel, BorderLayout.EAST);
@@ -52,7 +54,7 @@
             contentPanel.add(signInButton);
             contentPanel.add(signUpButton);
 
-            CustomButton AdminB = new CustomButton("Admin Sign in", Color.ORANGE);
+            CustomButton AdminB = new CustomButton("Admin Sign in", Color.WHITE);
             constraints.gridx = 5;
             constraints.gridy = 10;
             constraints.anchor = GridBagConstraints.EAST;
@@ -64,32 +66,20 @@
             contentPanel.add(subheadingLabel, constraints);
 
             // Create custom buttons for different search options
-            CustomButton popularityButton = new CustomButton("Popularity", Color.PINK); //Orange
-            CustomButton proficiencyButton = new CustomButton("Proficiency Level", Color.PINK); //or white
-            CustomButton languageButton = new CustomButton("Language", Color.PINK);
-            CustomButton languageProficiencyButton = new CustomButton("Language and Proficiency", Color.PINK);
-            CustomButton regionButton = new CustomButton("Region", Color.PINK);
+            CustomButton popularityButton = new CustomButton("Popularity", Color.WHITE); //Orange
+            CustomButton proficiencyButton = new CustomButton("Proficiency Level", Color.WHITE); //or white
+            CustomButton languageButton = new CustomButton("Language", Color.WHITE);
+            CustomButton languageProficiencyButton = new CustomButton("Language and Proficiency", Color.WHITE);
+            CustomButton regionButton = new CustomButton("Region", Color.WHITE);
 
             //Sample data to test functionality
 
-            ArrayList<String> pL1 = new ArrayList<>();
-            pL1.add("Beginner");
-            pL1.add("Intermediate");
-            Language eng= new Language("English", pL1, "North America", "Great lang to start with!", 5);
-            ArrayList<String> pL2 = new ArrayList<>();
-            pL2.add("N1");
-            pL2.add("N2");
-            Language Jap= new Language("Japanese", pL2, "Asia", "Very complex", 9);
-
-            LanguageCategorization lSample = new LanguageCategorization();
-            lSample.addLanguage(eng);
-            lSample.addLanguage(Jap);
             //End of Sample Data!!
             // Add action listeners to the buttons (implement functionality)
             popularityButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    PopularityOptionsPage optionsPage = new PopularityOptionsPage(lSample);
+                    PopularityOptionsPage optionsPage = new PopularityOptionsPage(cat);
                     optionsPage.setVisible(true);
                 }
             });
@@ -97,28 +87,16 @@
             proficiencyButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                 ProficiencyLevelOptionsPage optionsPage = new ProficiencyLevelOptionsPage(lSample);
+                 ProficiencyLevelOptionsPage optionsPage = new ProficiencyLevelOptionsPage(cat);
                  optionsPage.setVisible(true);
                 }
             });
 //Another test case
-            ArrayList<String> pL5 = new ArrayList<>();
-            pL5.add("Beginner");
-            pL5.add("Intermediate");
-            Language engl= new Language("English", pL5, "North America", "Great lang to start with!", 5);
-            ArrayList<String> pL8 = new ArrayList<>();
-            pL8.add("N1");
-            pL8.add("N2");
-            Language Chin= new Language("Chinese", pL8, "Asia", "Very complex", 9);
-
-            LanguageCategorization lSample2 = new LanguageCategorization();
-            lSample2.addLanguage(engl);
-            lSample2.addLanguage(Chin);
 
             languageButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    LanguageOptionsPage optionsPage = new LanguageOptionsPage(lSample2);
+                    LanguageOptionsPage optionsPage = new LanguageOptionsPage(cat);
                     optionsPage.setVisible(true);
                 }
             });
@@ -128,7 +106,7 @@
                 public void actionPerformed(ActionEvent e) {
                     // Open the Sign In window
                     SwingUtilities.invokeLater(() -> {
-                        new SignIn(lSample);
+                        new SignIn(cat);
                     });
                 }
             });
@@ -138,7 +116,7 @@
                 public void actionPerformed(ActionEvent e) {
                     // Open the Sign Up window
                     SwingUtilities.invokeLater(() -> {
-                        new SignUp(lSample);
+                        new SignUp(cat);
                     });
                 }
             });
@@ -148,10 +126,27 @@
                 public void actionPerformed(ActionEvent e) {
                     // Open the Sign Up window
                     SwingUtilities.invokeLater(() -> {
-                        new AdminSignIn(lSample);
+                        new AdminSignIn(cat);
                     });
                 }
             });
+
+            languageProficiencyButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    LanguageProficiencySearchPage LangProf = new LanguageProficiencySearchPage(cat);
+                    LangProf.setVisible(true);
+                }
+            });
+
+            regionButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    SearchByRegion regionPage = new SearchByRegion(cat);
+                    regionPage.setVisible(true);
+                }
+            });
+
 
             // Set buttons position (left and vertical)
             constraints.gridx = 0;
@@ -179,7 +174,30 @@
 
         public static void main(String[] args) {
             SwingUtilities.invokeLater(() -> {
-                HomePage homePage = new HomePage();
+                ArrayList<String> plE = new ArrayList<>();
+                plE.add("Beginner");
+                plE.add("Intermediate");
+                plE.add("Advanced");
+
+                ArrayList<String> DescELevels = new ArrayList<>();
+                DescELevels.add("An introduction to basic grammatical techniques.");
+                DescELevels.add("Learning basic conversational techniques, and learning reading through small books.");
+                DescELevels.add("The most advanced level, involving listening, reading, writing and speaking.");
+
+                ArrayList<String> plJ = new ArrayList<>();
+                plJ.add("N1");
+                plJ.add("N2");
+                plJ.add("N3");
+                plJ.add("N4");
+                plJ.add("N5");
+                Language eng = new Language("English", plE, "America", "This is English's description.",
+                        10, DescELevels);
+                Language Jap = new Language("Japanese", plJ, "Asia", "Very popular language due to a worldwide increase in media consumption.", 8);
+                LanguageCategorization cat = new LanguageCategorization();
+                cat.addLanguage(eng);
+                cat.addLanguage(Jap);
+
+                HomePage homePage = new HomePage(cat);
                 homePage.setVisible(true);
             });
         }

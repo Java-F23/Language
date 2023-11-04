@@ -273,7 +273,7 @@ public class ProficiencyLevelOptionsPage extends JFrame {
         constraints.insets = new Insets(5, 5, 5, 5);
         panel.setBackground(Color.WHITE);
 
-        JLabel label = new JLabel("Enter Proficiency Levels (comma-separated):");
+        JLabel label = new JLabel("Enter Proficiency Levels:"); //(comma-separated)
         constraints.gridx = 0;
         constraints.gridy = 0;
         constraints.gridwidth = 2;
