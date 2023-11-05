@@ -3,6 +3,8 @@
 
 -First 16 tasks chat- [ChatGPT](https://chat.openai.com/share/c2b2626d-57cd-4140-a7e6-ab7072b3acfe)
 
+-Second Sprint chat- [ChatGPT_Sprint_2](https://chat.openai.com/share/c2b2626d-57cd-4140-a7e6-ab7072b3acfe)
+
 -A main function has been included to test a few of the major functions in the classes. The classes work in tandem to complete the tasks assigned. 
 
 Contributor: Basmala Abdelkader- 900212406- Sun/Wed 3:30 Section - AUC
