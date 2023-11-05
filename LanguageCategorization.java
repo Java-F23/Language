@@ -23,6 +23,19 @@ public class LanguageCategorization {
         }
     }
 
+    public void removeLanguage(Language language)
+    {
+        Language[] arr_new = new Language[availableLanguages.length-1];
+        int i = 0;
+        for(Language l : availableLanguages)
+        {
+            if(l != language)
+                arr_new[i] = l;
+            i++;
+        }
+        availableLanguages = arr_new;
+    }
+
     // Method to get all available languages
     public Language[] getAvailableLanguages() {
         Language[] result = new Language[languageCount];
@@ -94,25 +107,6 @@ public class LanguageCategorization {
         return result;
     }
 
-    // Display language name, proficiency levels, and descriptions
-    public void displayLanguageProficiencyDescriptions(String languageName) {
-        for (int i = 0; i < languageCount; i++) {
-            if (availableLanguages[i].getName().equals(languageName)) {
-                Language language = availableLanguages[i];
-                System.out.println("Language: " + language.getName());
-                System.out.println("Proficiency Levels and Descriptions:");
-                for (String proficiencyLevel : language.getProficiencyLevels()) {
-                    String description = language.getProficiencyLevelDescription(proficiencyLevel);
-                    System.out.println("- Proficiency Level: " + proficiencyLevel);
-                    System.out.println("  Description: " + description);
-                }
-                System.out.println();
-                return; // Exit once the language is found
-            }
-        }
-        System.out.println("Language not found: " + languageName);
-    }
-
     public Language[] getLanguagesByRegion(String region) {
         Language[] filteredLanguages = new Language[MAX_LANGUAGES];
         int filteredCount = 0;
@@ -164,6 +158,4 @@ public class LanguageCategorization {
         System.arraycopy(filteredLanguages, 0, result, 0, filteredCount);
         return result;
     }
-
-
 }

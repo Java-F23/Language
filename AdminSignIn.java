@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-//Part 3 Q 2
 public class AdminSignIn extends JFrame {
     private JTextField emailField;
     private JPasswordField passwordField;
@@ -26,7 +25,7 @@ public class AdminSignIn extends JFrame {
         emailField = new JTextField(20);
         passwordField = new JPasswordField(20);
         passwordField.setEchoChar('\u2022'); // Unicode for bullet (black dot)
-        //Temporary, until I implement files into everything
+        //Temporary admin, until I implement files into everything
         Administrator adm = new Administrator("Nina", emailField.getText());
         // Add components to the frame
         add(emailLabel);

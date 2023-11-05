@@ -88,10 +88,4 @@ public class SignIn extends JFrame {
         }
         return false; // Sign in failed
     }
-
-  /*  public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            new SignIn();
-        });
-    }*/
 }

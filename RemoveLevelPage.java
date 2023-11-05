@@ -4,14 +4,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class EnrollmentPage extends JFrame {
+public class RemoveLevelPage extends JFrame {
     private ArrayList<Course> selectedCourses = new ArrayList<>();
     private ArrayList<Language> selectedLanguages = new ArrayList<>();
 
-    private LanguageCategorization categorization;
-
-    public EnrollmentPage(LanguageCategorization categorization, Learner learner) {
-        this.categorization = categorization;
+    public RemoveLevelPage(LanguageCategorization categorization) {
         setTitle("Enrollment Page");
         setSize(800, 600);
         setLocationRelativeTo(null);
@@ -63,18 +60,14 @@ public class EnrollmentPage extends JFrame {
                     public void actionPerformed(ActionEvent e) {
                         if (radioButton.isSelected()) {
                             // Check if the user is allowed to enroll
-                            if (selectedCourses.size() < 3 && !selectedLanguages.contains(language.getName())) {
+
                                 selectedCourses.add(language.getCourseByProficiency(radioButton.getText()));
                                 selectedLanguages.add(language);
-                            } else {
-                                // Display an error message if the user is not allowed to enroll
-                                radioButton.setSelected(false); // Deselect the radio button
-                                JOptionPane.showMessageDialog(null, "You have reached the enrollment limit or already enrolled in a course for this language.");
-                            }
-                        } else {
+                              }
+                        else {
                             // If the radio button is deselected, remove the course from the selection
                             selectedCourses.remove(language.getCourseByProficiency(radioButton.getText()));
-                            selectedLanguages.remove(language.getName());
+                            selectedLanguages.remove(language);
                         }
                     }
                 });
@@ -88,18 +81,16 @@ public class EnrollmentPage extends JFrame {
             languagePanel.add(proficiencyPanel);
         }
 
-        //An "Enroll" button
-        JButton enrollButton = new JButton("Enroll");
-        enrollButton.setToolTipText("Make sure you have: only selected one course in a Language, selected a maximum of 3 courses!");
-
+        // Create an "Enroll" button
+        JButton enrollButton = new JButton("Confirm");
         enrollButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Handle the enrollment here
+                // Handle the deletion here
                 int index;
                 for (Language language_l : selectedLanguages) {
                     index = selectedLanguages.indexOf(language_l);
-                    learner.Enroll(categorization, language_l.getName(), language_l.getCourseByProficiency(selectedCourses.get(index).getName()).getName());
+                    language_l.removeProficiencyLevel(language_l.getCourseByProficiency(selectedCourses.get(index).getName()).getName());
                 }
                 // You can update the UI or show a confirmation message
                 JOptionPane.showMessageDialog(null, "Enrollment completed.");

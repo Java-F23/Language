@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 
 public class Learner {
- //   private String name;
     private String email;
     private String password;
     private ArrayList<Course> favorites;
@@ -24,11 +23,6 @@ public class Learner {
         this.upcomingCourses = new ArrayList<>();
         this.pastCourses = new ArrayList<>();
     }
-
-    //public String getName()
-    //{
-     //   return name;
-   // }
 
     public String getEmail()
     {
@@ -80,12 +74,6 @@ public class Learner {
         }
     }
 
-//    public void GenerateCertificate(Course course)
-//    {
-//        System.out.println("Congratulations " + name + "!");
-//        System.out.println("You've completed the " + course.getName() + " level " + course.getProficiencyLevel());
-//    }
-
     public void completeCourse(Course course) {
         coursesDone.add(course);
         coursesInProgress.remove(course);
@@ -108,33 +96,10 @@ public class Learner {
         return pastCourses;
     }
 
-    // Search for a specific language and proficiency level, return corresponding course if available
-    public Course searchLanguageAndProficiency(String languageName, String proficiencyLevel, LanguageCategorization categorization) {
-        Language [] filteredLanguages = categorization.filterByLanguageAndProficiency(languageName, proficiencyLevel);
-        if (filteredLanguages.length > 0) {
-            Language language = filteredLanguages[0];
-            return language.getCourseByProficiency(proficiencyLevel);
-        }
-        return null;
-    }
+    //Searching by proficiency/ Language/ popularity was implemented by a function in the Language class, corresponding to a specific LanguageCategorization
 
-    // Search for a specific language, return its available courses
-    public ArrayList<Course> searchLanguage(String languageName, LanguageCategorization categorization) {
-        Language [] filteredLanguages = categorization.filterByLanguage(languageName);
-        if (filteredLanguages.length > 0) {
-            Language language = filteredLanguages[0];
-            return language.getCourses();
-        }
-        return new ArrayList<>();
-    }
-
-    // Search for languages by popularity
-    public Language[] searchByPopularity(int minPopularity, int maxPopularity, LanguageCategorization categorization) {
-        Language[] filteredLanguages = categorization.filterByPopularityRange(minPopularity, maxPopularity);
-        return filteredLanguages;
-    }
-
-        // Method to display a full learner report
+//Will be used as template for third sprint:
+        /*// Method to display a full learner report
         public void displayFullReport(Language lang) {
             //System.out.println("Learner Name: " + name);
             System.out.println("Learner Email: " + email);
@@ -180,6 +145,6 @@ public class Learner {
                     System.out.println("- " + course.getName());
                 }
             }
-        }
+        }*/
 
 }

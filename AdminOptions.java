@@ -29,7 +29,6 @@ public class AdminOptions extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Implement the functionality for viewing learner data
-                // You can open a new window or dialog for this option
                 //Can only be done when files are implemented
             }
         });
@@ -57,16 +56,19 @@ public class AdminOptions extends JFrame {
         });
         buttonPanel.add(addCourseButton);
 
+        JButton RemoveProficiency = new JButton("Remove Proficiency Level");
+        RemoveProficiency.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               RemoveProficiencyOptions RPO = new RemoveProficiencyOptions(cat);
+               RPO.setVisible(true);
+            }
+        });
+        buttonPanel.add(RemoveProficiency);
+
         contentPanel.add(buttonPanel, BorderLayout.CENTER);
 
         setContentPane(contentPanel);
         setVisible(true);
     }
-
-    /*public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            AdminOptions adminOptions = new AdminOptions();
-            adminOptions.setVisible(true);
-        });
-    }*/
 }

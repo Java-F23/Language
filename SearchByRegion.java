@@ -2,8 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
 
 public class SearchByRegion extends JFrame {
     private JLabel titleLabel;
@@ -74,24 +73,19 @@ public class SearchByRegion extends JFrame {
     }
 
     private String[] getAvailableRegions(LanguageCategorization categorization) {
-        // Get all available regions from the list of languages
-        Set<String> regions = new HashSet<>();
+        ArrayList<String> regionList = new ArrayList<>();
+
+        // Iterate through the available languages
         for (Language language : categorization.getAvailableLanguages()) {
-            regions.add(language.getRegion());
+            String region = language.getRegion();
+
+            // Check if the region is not already in the list
+            if (!regionList.contains(region)) {
+                regionList.add(region);
+            }
         }
 
-        // Convert the set to an array of unique regions
-        return regions.toArray(new String[0]);
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            // You can create an instance of LanguageCategorization and pass it to the constructor
-            // of SearchByRegion to test the functionality.
-            // Example:
-            // LanguageCategorization categorization = new LanguageCategorization();
-            // SearchByRegion searchPage = new SearchByRegion(categorization);
-            // searchPage.setVisible(true);
-        });
+        // Convert the ArrayList to an array of unique regions
+        return regionList.toArray(new String[0]);
     }
 }

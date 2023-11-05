@@ -12,7 +12,5 @@ public class CustomButton extends JButton {
         setFont(new Font("Arial", Font.BOLD, 16)); // Set the font and size
         setBorderPainted(false); // Remove the border
         setOpaque(true); // Ensure that the button is opaque (background color is visible)
-
-        // You can add more customization as needed, such as adding action listeners, tooltips, etc.
     }
 }

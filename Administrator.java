@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Administrator {
     private String Name;
@@ -21,11 +20,6 @@ public class Administrator {
                 break;
             }
         }
-/*
-        if (language == null) {
-            // Language doesn't exist, add a new language
-            language = AddLanguage(categorization, LangName);
-        }*/
 
         Course newCourse = new Course(CourseName, level);
         language.addCourse(newCourse);
@@ -48,8 +42,9 @@ public class Administrator {
 
         return newLanguage;
     }
+
 /*
-Will be used as a template for next sprint's functionality
+Will be used as a template for third sprint's functionality
     public void viewLearnerData(Learner learner, Language lang) {
         System.out.println("Learner Name: " + learner.getName());
         System.out.println("Learner Email: " + learner.getEmail());

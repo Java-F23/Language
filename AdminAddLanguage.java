@@ -47,7 +47,7 @@ public class AdminAddLanguage extends JFrame {
                 // Call the AddLanguage function
                 adm.AddLanguage(categorization, langName, region, description, popularity, proficiencyLevels, proficiencyLevelDescriptions);
 
-                // Show a success message or handle errors
+                // Show a success message
                 JOptionPane.showMessageDialog(null, "Language added successfully.");
 
                 // Close the AdminAddLanguage window
@@ -74,12 +74,4 @@ public class AdminAddLanguage extends JFrame {
 
         setVisible(true);
     }
-
-   /* public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            // Create an instance of LanguageCategorization (replace with your actual initialization)
-            LanguageCategorization categorization = new LanguageCategorization();
-            new AdminAddLanguage(categorization);
-        });
-    }*/
 }

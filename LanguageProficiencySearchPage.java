@@ -71,15 +71,4 @@ public class LanguageProficiencySearchPage extends JFrame {
             }
         });
     }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            // You can create an instance of LanguageCategorization and pass it to the constructor
-            // of LanguageProficiencySearchPage to test the functionality.
-            // Example:
-            // LanguageCategorization categorization = new LanguageCategorization();
-            // LanguageProficiencySearchPage searchPage = new LanguageProficiencySearchPage(categorization);
-            // searchPage.setVisible(true);
-        });
-    }
 }

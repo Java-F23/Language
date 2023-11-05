@@ -8,8 +8,6 @@ import java.util.Arrays;
 public class AddCourseMaterialsFrame extends JFrame {
 
     public AddCourseMaterialsFrame(Administrator admin, LanguageCategorization categorization) {
-        //this.categorization = categorization;
-
         setTitle("Add Course and Materials");
         setSize(400, 300);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -18,7 +16,6 @@ public class AddCourseMaterialsFrame extends JFrame {
         JPanel contentPanel = new JPanel();
         GridBagLayout gridBagLayout = new GridBagLayout();
         contentPanel.setLayout(gridBagLayout);
-        // Create and add components (text fields, labels, buttons) here
 
         // Language Name
         JTextField langNameField = new JTextField(20);

@@ -16,10 +16,10 @@
                 @Override
                 protected void paintComponent(Graphics g) {
                     super.paintComponent(g);
-                    // Load and display the background image
+                    // Load and display the background image (another image)
                     //C:/Users/abdel/Downloads/fa845d1a-c5a8-46eb-a29b-cffea7bc9b69 (1).jpg
 
-                    ImageIcon backgroundImage = new ImageIcon("C:\\Users\\abdel\\Downloads\\image (17).png");//C:/Users/abdel/Downloads/fa845d1a-c5a8-46eb-a29b-cffea7bc9b69 (1).jpg");
+                    ImageIcon backgroundImage = new ImageIcon("C:\\Users\\abdel\\Downloads\\image (17).png");
                     g.drawImage(backgroundImage.getImage(), 0, 0, getWidth(), getHeight(), this);
                 }
             };
@@ -29,9 +29,6 @@
             contentPanel.setLayout(gridBagLayout);
             GridBagConstraints constraints = new GridBagConstraints();
 
-           /* JPanel topPanel = new JPanel();
-            topPanel.setLayout(new BorderLayout());
-*/
             // Create a title label and set its position (top left)
             JLabel titleLabel = new JLabel("Polyglot");
             titleLabel.setFont(new Font("Arial", Font.BOLD, 35));
@@ -43,8 +40,6 @@
 
             buttonsPanel.add(signInButton);
             buttonsPanel.add(signUpButton);
-           // topPanel.add(buttonsPanel, BorderLayout.EAST);
-            //contentPanel.add(topPanel);
 
             constraints.gridx = 0;
             constraints.gridy = 0;
@@ -65,16 +60,26 @@
             constraints.gridy = 1;
             contentPanel.add(subheadingLabel, constraints);
 
+            CustomButton ViewAll = new CustomButton("View All", Color.WHITE);
             // Create custom buttons for different search options
             CustomButton popularityButton = new CustomButton("Popularity", Color.WHITE); //Orange
             CustomButton proficiencyButton = new CustomButton("Proficiency Level", Color.WHITE); //or white
             CustomButton languageButton = new CustomButton("Language", Color.WHITE);
             CustomButton languageProficiencyButton = new CustomButton("Language and Proficiency", Color.WHITE);
             CustomButton regionButton = new CustomButton("Region", Color.WHITE);
+            ViewAll.setToolTipText("This is a page that displays all the languages and courses currently available");
+            signInButton.setToolTipText("Already have an account? Sign in!");
+            signUpButton.setToolTipText("Don't have an account? Sign up now!");
+            AdminB.setToolTipText("Admins sign in only!");
 
-            //Sample data to test functionality
-
-            //End of Sample Data!!
+            ViewAll.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    //Add hovering for this button
+                    ViewAllPage viewAllPage = new ViewAllPage(cat);
+                    viewAllPage.setVisible(true);
+                }
+            });
             // Add action listeners to the buttons (implement functionality)
             popularityButton.addActionListener(new ActionListener() {
                 @Override
@@ -91,7 +96,6 @@
                  optionsPage.setVisible(true);
                 }
             });
-//Another test case
 
             languageButton.addActionListener(new ActionListener() {
                 @Override
@@ -169,11 +173,14 @@
             constraints.gridy = 6;
             contentPanel.add(regionButton, constraints);
 
+            constraints.gridy = 7;
+            contentPanel.add(ViewAll, constraints);
             setContentPane(contentPanel); // Set the content panel with the background image
         }
 
         public static void main(String[] args) {
             SwingUtilities.invokeLater(() -> {
+                //Test case for everything
                 ArrayList<String> plE = new ArrayList<>();
                 plE.add("Beginner");
                 plE.add("Intermediate");

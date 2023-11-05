@@ -18,11 +18,11 @@ public class TextObject {
 
     public JLabel createLabel() {
         JLabel label = new JLabel(text);
-        label.setFont(new Font(font.getName(), font.getStyle(), size));
+        // Create a font
+        Font labelFont = new Font("Arial", Font.BOLD, 16);
+        label.setFont(labelFont);
         label.setForeground(color);
         label.setHorizontalAlignment(SwingConstants.CENTER);
         return label;
     }
-
-    // You can add more methods to customize the graphical object as needed.
 }

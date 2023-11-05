@@ -226,15 +226,4 @@ public class Language {
         return null; // Return null if no course is found for the given proficiency level
     }
 
-    public void DisplayLevelsAndDescriptions()
-    {
-            System.out.println(this.name + ":");
-            for(int i=0; i<courses.size(); i++)
-            {
-                System.out.println(courses.get(i).getName());
-                System.out.println(courses.get(i).getProficiencyLevel());
-                System.out.println(courses.get(i).getProficiencyLevelDesc(courses.get(i).getProficiencyLevel(), this));
-            }
-    }
-
 }
