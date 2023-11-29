@@ -1,12 +1,14 @@
 import java.util.ArrayList;
-public class Course {
+import java.util.List;
+
+public class CourseModel {
     private String name;
     private String proficiencyLevel;
-    private ArrayList<String> books;
-    private ArrayList<String> videos;
-    private ArrayList<String> exercises;
+    private List<String> books;
+    private List<String> videos;
+    private List<String> exercises;
 
-    public Course(String name, String proficiencyLevel) {
+    public CourseModel(String name, String proficiencyLevel) {
         this.name = name;
         this.proficiencyLevel = proficiencyLevel;
         this.books = new ArrayList<>();
@@ -26,25 +28,24 @@ public class Course {
         exercises.add(exercise);
     }
 
-    public ArrayList<String> getBooks() {
+    public List<String> getBooks() {
         return books;
     }
 
-    public ArrayList<String> getVideos() {
+    public List<String> getVideos() {
         return videos;
     }
 
-    public ArrayList<String> getExercises() {
+    public List<String> getExercises() {
         return exercises;
     }
-
-    // Getters and setters for name and proficiencyLevel
 
     public void setProficiencyLevel(String proficiencyLevel) {
         this.proficiencyLevel = proficiencyLevel;
     }
-    public void setName(String Name) {
-        this.name = Name;
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getName() {
@@ -55,8 +56,7 @@ public class Course {
         return proficiencyLevel;
     }
 
-    public String getProficiencyLevelDesc(String proficiencyLevel, Language lang)
-    {
+    public String getProficiencyLevelDesc(String proficiencyLevel, LanguageModel lang) {
         return lang.getProficiencyLevelDescription(proficiencyLevel);
     }
 }
