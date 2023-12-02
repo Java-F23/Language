@@ -6,7 +6,7 @@ import java.util.List;
 public class LearnerController extends UserController {
 
     @Override
-    boolean SignIn(JPanel panel, JTextField emailField, JPasswordField passwordField) {
+   public boolean SignIn(JPanel panel, JTextField emailField, JPasswordField passwordField) {
         int result = JOptionPane.showConfirmDialog(null, panel, "Learner Sign In",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
@@ -34,7 +34,7 @@ public class LearnerController extends UserController {
     }
 
     @Override
-    void SignUp(JPanel panel, JTextField name, JTextField emailField, JTextField usernameField, JPasswordField passwordField) {
+    public void SignUp(JPanel panel, JTextField name, JTextField emailField, JTextField usernameField, JPasswordField passwordField) {
         int result = JOptionPane.showConfirmDialog(null, panel, "Learner Sign Up",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
@@ -54,7 +54,7 @@ public class LearnerController extends UserController {
     }
 
     @Override
-    String GetCredentials(String email) {
+    public String GetCredentials(String email) {
         List<String[]> learnerCredentialsList = retrieveCredentials(email);
 
         if (!learnerCredentialsList.isEmpty()) {

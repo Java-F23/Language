@@ -1,7 +1,5 @@
-import java.util.HashMap;
-import java.util.Map;
-import java.util.List;
-import java.util.ArrayList;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class LanguageModel {
     private String name;
@@ -23,6 +21,25 @@ public class LanguageModel {
 
         proficiencyLevelDescriptions = new HashMap<>();
         courses = new HashMap<>();
+    }
+
+    public LanguageModel(String name, String region, String description, int popularity, String profLevels) {
+        if (name == null || region == null) {
+            throw new IllegalArgumentException("Null input values are not allowed.");
+        }
+
+        this.name = name;
+        this.region = region;
+        this.description = description;
+        setPopularity(popularity);
+
+        proficiencyLevelDescriptions = new HashMap<>();
+        courses = new HashMap<>();
+
+        List<String> proficiencyLevels = Arrays.asList(profLevels.split("\\s*,\\s*"));
+        proficiencyLevelDescriptions.putAll(proficiencyLevels.stream()
+                .collect(Collectors.toMap(level -> level, level -> "default")));
+
     }
 
     public String getName() {
@@ -90,5 +107,9 @@ public class LanguageModel {
         } else {
             throw new IllegalArgumentException("Proficiency level not found: " + proficiencyLevel);
         }
+    }
+
+    public Map<String, String> getProficiencyLevelDescriptions() {
+        return new HashMap<>(proficiencyLevelDescriptions);
     }
 }

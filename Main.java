@@ -1,5 +1,10 @@
 public class Main {
+    /*
+    Notes for tomorrow:
+    Create the Learner options page
+    Expand and Test Admin options page
+     */
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+ViewController v = new ViewController();
     }
 }

@@ -113,4 +113,9 @@ public class LanguageCatModel { //LanguageCategorization Model
 
         return filteredLanguages;
     }
+
+    public void setAvailableLanguages(List<LanguageModel> L){
+        availableLanguages = L;
+    }
+
 }

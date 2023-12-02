@@ -7,20 +7,20 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+//fix the system out stuff, they're useless
 public class AdministratorController extends UserController{
-
-    @Override
-    boolean SignIn(JPanel panel, JTextField usernameField, JPasswordField passwordField) {
+    @Override //was usernameField
+    boolean SignIn(JPanel panel, JTextField emailField, JPasswordField passwordField) {
         int result = JOptionPane.showConfirmDialog(null, panel, "Administrator Sign In",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
         if (result == JOptionPane.OK_OPTION) {
-            String enteredUsername = usernameField.getText();
+            String enteredEmail = emailField.getText();
             char[] enteredPasswordChars = passwordField.getPassword();
             String enteredPassword = new String(enteredPasswordChars);
 
             // Validate credentials by checking against a CSV file
-            boolean validCredentials = checkCredentials(enteredUsername, enteredPassword);
+            boolean validCredentials = checkCredentials(enteredEmail, enteredPassword);
 
             if (validCredentials) {
                 System.out.println("Administrator sign-in successful!");
@@ -39,8 +39,8 @@ public class AdministratorController extends UserController{
 
     @Override
     void SignUp(JPanel panel, JTextField name, JTextField email, JTextField usernameField, JPasswordField passwordField) {
-String username;
-String password;
+    String username;
+    String password;
         int result = JOptionPane.showConfirmDialog(null, panel, "Administrator Sign Up",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
@@ -103,16 +103,16 @@ String password;
             return "Administrator not found for the provided email.";
         }
     }
-    private boolean checkCredentials(String enteredUsername, String enteredPassword) {
+    public boolean checkCredentials(String enteredEmail, String enteredPassword) {
         try (BufferedReader reader = new BufferedReader(new FileReader("Admin.csv"))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
-                if (parts.length >= 2 && enteredUsername.equals(parts[0]) && enteredPassword.equals(parts[1])) {
+                if (parts.length >= 4 && enteredEmail.equals(parts[3]) && enteredPassword.equals(parts[1])) {
                     // Additional fields: parts[2] is 'name' and parts[3] is 'email'
-                    String name = parts.length > 2 ? parts[2] : "";
+                   /* String name = parts.length > 2 ? parts[2] : "";
                     String email = parts.length > 3 ? parts[3] : "";
-                   /* System.out.println("Administrator Name: " + name);
+                    System.out.println("Administrator Name: " + name);
                     System.out.println("Administrator Email: " + email);*/
                     return true;
                 }
