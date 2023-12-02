@@ -1,5 +1,6 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -535,6 +536,7 @@ public class View extends JFrame {
         setContentPane(optionsPanel);
     }
 
+
     public JTextField getMinPopularityField() {
         return minPopularityField;
     }
@@ -543,6 +545,110 @@ public class View extends JFrame {
         return maxPopularityField;
     }
 
+    //Just in case
+    private void setLanguageTable(List<LanguageModel> languageList) {
+        // Create a table to display the results
+        DefaultTableModel tableModel = new DefaultTableModel(
+                new String[]{"Language", "Region", "Description", "Proficiency Levels", "Popularity"}, 0);
+
+        JTable resultTable = new JTable(tableModel) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
+        // Display the results in the table
+        for (LanguageModel language : languageList) {
+            JButton languageButton = new JButton(language.getName());
+            languageButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // Open EnrollmentDialog when a language button is clicked
+                    EnrollmentDialog enrollmentDialog = new EnrollmentDialog(View.this, language.getName());
+                    enrollmentDialog.setVisible(true);
+                }
+            });
+
+            // Add a row to the table with language information
+            tableModel.addRow(new Object[]{
+                    languageButton.getText(), // Extract text from the button
+                    language.getRegion(),
+                    language.getDescription(),
+                    String.join(", ", language.getProficiencyLevels()), // Assuming proficiency levels are a list
+                    language.getPopularity()
+            });
+        }
+
+        // Add input fields, the result table, and enrollment buttons to the options panel
+        JPanel optionsPanel = new JPanel(new FlowLayout());
+        optionsPanel.add(new JScrollPane(resultTable));
+
+        // Set the frame content pane to the options panel
+        setContentPane(optionsPanel);
+    }
+    public void LearnerViewAllPage(LanguageCatModel cat) {
+        setTitle("View All Page");
+        setSize(800, 600);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(null);
+
+        List<LanguageModel> available = cat.getAvailableLanguages();
+
+        // Create a panel for the content
+        JPanel contentPanel = new JPanel();
+        contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
+
+        // Create a title label
+        JLabel titleLabel = new JLabel("Languages and courses available:");
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        contentPanel.add(titleLabel);
+
+        // Create a scroll pane for the content
+        JScrollPane scrollPane = new JScrollPane(contentPanel);
+        contentPanel.setAutoscrolls(true);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+        // Add the scroll pane to the frame
+        setContentPane(scrollPane);
+
+        // Create a list of LanguageModel objects for the setLanguageTable function
+        List<LanguageModel> languageList = new ArrayList<>();
+
+        for (LanguageModel language : available) {
+            JButton languageButton = new JButton(language.getName());
+            languageButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // Open EnrollmentDialog when a language button is clicked
+                    EnrollmentDialog enrollmentDialog = new EnrollmentDialog(View.this, language.getName());
+                    enrollmentDialog.setVisible(true);
+                }
+            });
+            String profLevels = "";
+            for(String l : language.getProficiencyLevels())
+            {
+                profLevels = profLevels + l + ",";
+            }
+
+
+            // Add a button for each language to the language list
+            if(!profLevels.isEmpty())
+            languageList.add(new LanguageModel(language.getName(), language.getRegion(), language.getDescription(), language.getPopularity(), profLevels.substring(0, profLevels.length() - 1)));
+            else
+                languageList.add(new LanguageModel(language.getName(), language.getRegion(), language.getDescription(), language.getPopularity()));
+
+            // Add the language button to the content panel
+            contentPanel.add(languageButton);
+        }
+
+        // Use the setLanguageTable function to display the languages in a table
+        setLanguageTable(languageList);
+
+        setVisible(true);
+    }
+/*
     public void LearnerViewAllPage(LanguageCatModel cat) {
         setTitle("View All Page");
         setSize(800, 600);
@@ -584,7 +690,7 @@ public class View extends JFrame {
         }
 
         setVisible(true);
-    }
+    }*/
 
     public void ProficiencyLevelOptionsPage(){
 
@@ -664,4 +770,5 @@ public class View extends JFrame {
     {
         return searchByValueButton;
     }
+
 }
