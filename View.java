@@ -1,6 +1,5 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,9 +19,20 @@ import java.util.List;
 //and courses coming up
 //An Admin can view the learner details, but cannot view the learners' passwords
 //A user can view their favorite courses, their past, in progress, and future courses
-//a User can (maybe) unfavorite a course
+//a User can (maybe) un-favorite a course
 
 public class View extends JFrame {
+    private JComboBox regionComboBox_Region;
+    private JButton searchButton_Region;
+    private JTextArea resultTextArea_Region;
+    private JTextArea resultTextArea_LangProf;
+    private JTextField languageNameField_LangProf;
+    private JTextField proficiencyLevelField_LangProf;
+    private JButton searchButton_LangProf;
+    private JTextField LanguageSearchInput;
+    private JButton searchByLanguageButton;
+    private ArrayList<JButton> EnrollButtons;
+    private ArrayList<JButton> FavButtons;
     private JTextField LangNameField;
     private JTextField regionField;
     private JTextField descriptionField;
@@ -66,7 +76,7 @@ public class View extends JFrame {
         signUpButton = new JButton("Sign Up");
 
         // Add action listeners to the sign in and sign up buttons
-        signInButton.addActionListener(new ActionListener() {
+        /*signInButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Sign In button clicked");
@@ -78,7 +88,7 @@ public class View extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Sign Up button clicked");
             }
-        });
+        });*/
 
         // Create a panel for the buttons
         optionsPanel = new JPanel();
@@ -112,17 +122,14 @@ public class View extends JFrame {
     public JButton getSignUpButton() {
         return signUpButton;
     }
-
+/*
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                View view = new View();
-                view.PopularityOptionsPage();
-                view.setVisible(true);
-            }
+        SwingUtilities.invokeLater(() -> {
+            View view = new View();
+            view.PopularityOptionsPage();
+            view.setVisible(true);
         });
-    }
+    }*/
 
     public JButton displayWelcomeMessage() {
         // Create a JPanel for the content panel
@@ -320,6 +327,14 @@ public class View extends JFrame {
                 JOptionPane.INFORMATION_MESSAGE);
     }
 
+    public void displayFailSignInMessage() {
+        JOptionPane.showMessageDialog(this,
+                "Failed to sign in. Please check credentials, or Sign Up first.",
+                "Failed to Sign In",
+                JOptionPane.INFORMATION_MESSAGE);
+    }
+
+
     public JButton openSignInPage() {
         JFrame signInPage;
         signInPage = new JFrame("Sign In");
@@ -348,12 +363,9 @@ public class View extends JFrame {
         signInPanel.add(okButton);
 
         // Action listener for OK button
-        okButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // You can perform actions on OK button click here
-                signInPage.dispose(); // Close the sign-up frame
-            }
+        okButton.addActionListener(e -> {
+            // You can perform actions on OK button click here
+            signInPage.dispose(); // Close the sign-up frame
         });
 
         signInPage.add(signInPanel, BorderLayout.CENTER);
@@ -414,12 +426,9 @@ public class View extends JFrame {
         signUpPanel.add(okButton);
 
         // Action listener for OK button
-        okButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // You can perform actions on OK button click here
-                signUpFrame.dispose(); // Close the sign-up frame
-            }
+        okButton.addActionListener(e -> {
+            // You can perform actions on OK button click here
+            signUpFrame.dispose(); // Close the sign-up frame
         });
 
         signUpFrame.add(signUpPanel);
@@ -545,8 +554,7 @@ public class View extends JFrame {
         return maxPopularityField;
     }
 
-    //Just in case
-    private void setLanguageTable(List<LanguageModel> languageList) {
+    public void setLanguageTable(List<LanguageModel> languageList) {
         // Create a table to display the results
         DefaultTableModel tableModel = new DefaultTableModel(
                 new String[]{"Language", "Region", "Description", "Proficiency Levels", "Popularity"}, 0);
@@ -561,13 +569,10 @@ public class View extends JFrame {
         // Display the results in the table
         for (LanguageModel language : languageList) {
             JButton languageButton = new JButton(language.getName());
-            languageButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    // Open EnrollmentDialog when a language button is clicked
-                    EnrollmentDialog enrollmentDialog = new EnrollmentDialog(View.this, language.getName());
-                    enrollmentDialog.setVisible(true);
-                }
+            languageButton.addActionListener(e -> {
+                // Open EnrollmentDialog when a language button is clicked
+                EnrollmentDialog enrollmentDialog = new EnrollmentDialog(View.this, language.getName());
+                enrollmentDialog.setVisible(true);
             });
 
             // Add a row to the table with language information
@@ -582,11 +587,43 @@ public class View extends JFrame {
 
         // Add input fields, the result table, and enrollment buttons to the options panel
         JPanel optionsPanel = new JPanel(new FlowLayout());
+        JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        JPanel bottomPanelFav = new JPanel(new FlowLayout(FlowLayout.LEFT));
+
+        EnrollButtons = new ArrayList<>();
+        FavButtons = new ArrayList<>();
+
+        for(int i=0; i< languageList.size(); i++) {
+            JButton o = new JButton ("Enroll into " + languageList.get(i).getName());
+            bottomPanel.add(o);
+            EnrollButtons.add(o);
+            JButton f = new JButton("Add to Favorites: " + languageList.get(i).getName());
+            System.out.println(languageList.get(i).getName());
+            bottomPanelFav.add(f);
+            FavButtons.add(f);
+        }
+
         optionsPanel.add(new JScrollPane(resultTable));
+
+        // Add the main content panel and the bottom button panel to the frame
+        optionsPanel.add(bottomPanel, BorderLayout.SOUTH);
+        optionsPanel.add(new JLabel());
+        optionsPanel.add(bottomPanelFav, BorderLayout.SOUTH);
+
 
         // Set the frame content pane to the options panel
         setContentPane(optionsPanel);
     }
+
+    public ArrayList<JButton> getEnrollButtons()
+    {
+        return EnrollButtons;
+    }
+
+    public ArrayList<JButton> getFavButtons() {
+        return FavButtons;
+    }
+
     public void LearnerViewAllPage(LanguageCatModel cat) {
         setTitle("View All Page");
         setSize(800, 600);
@@ -617,21 +654,11 @@ public class View extends JFrame {
         List<LanguageModel> languageList = new ArrayList<>();
 
         for (LanguageModel language : available) {
-            JButton languageButton = new JButton(language.getName());
-            languageButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    // Open EnrollmentDialog when a language button is clicked
-                    EnrollmentDialog enrollmentDialog = new EnrollmentDialog(View.this, language.getName());
-                    enrollmentDialog.setVisible(true);
-                }
-            });
             String profLevels = "";
             for(String l : language.getProficiencyLevels())
             {
                 profLevels = profLevels + l + ",";
             }
-
 
             // Add a button for each language to the language list
             if(!profLevels.isEmpty())
@@ -648,49 +675,6 @@ public class View extends JFrame {
 
         setVisible(true);
     }
-/*
-    public void LearnerViewAllPage(LanguageCatModel cat) {
-        setTitle("View All Page");
-        setSize(800, 600);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(null);
-
-        List<LanguageModel> available = cat.getAvailableLanguages();
-
-        // Create a panel for the content
-        JPanel contentPanel = new JPanel();
-        contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
-
-        // Create a title label
-        JLabel titleLabel = new JLabel("Languages and courses available:");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 20));
-        titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        contentPanel.add(titleLabel);
-
-        // Create a scroll pane for the content
-        JScrollPane scrollPane = new JScrollPane(contentPanel);
-        contentPanel.setAutoscrolls(true);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-
-        // Add the scroll pane to the frame
-        setContentPane(scrollPane);
-
-        for (LanguageModel language : available) {
-            JLabel languageLabel = new JLabel(language.getName());
-            JLabel descriptionLabel = new JLabel(language.getDescription());
-            JLabel proficiencyLabel = new JLabel("Proficiency levels:");
-            contentPanel.add(languageLabel);
-            contentPanel.add(descriptionLabel);
-            contentPanel.add(proficiencyLabel);
-
-            for (String proficiencyLevel : language.getProficiencyLevels()) {
-                JLabel proficiencyLevelLabel = new JLabel("-" + proficiencyLevel);
-                contentPanel.add(proficiencyLevelLabel);
-            }
-        }
-
-        setVisible(true);
-    }*/
 
     public void ProficiencyLevelOptionsPage(){
 
@@ -744,7 +728,7 @@ public class View extends JFrame {
         constraints.gridwidth = 5; //2
         panel.add(scrollPane, constraints);
         String input = textField.getText();
-        ArrayList<String> proficiencyLevels = new ArrayList<String>();
+        ArrayList<String> proficiencyLevels = new ArrayList<>();
         proficiencyLevels.add(input);
 
         List<LanguageModel> filteredLanguages = categorization.filterByProficiencyLevels(proficiencyLevels);
@@ -771,4 +755,221 @@ public class View extends JFrame {
         return searchByValueButton;
     }
 
+
+    public void LanguageOptionsPage(LanguageCatModel categorization) {
+        setTitle("Language Options");
+        setSize(500, 500);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
+        JPanel panel = new JPanel(new GridBagLayout());
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.insets = new Insets(5, 5, 5, 5);
+        panel.setBackground(Color.WHITE);
+
+        JLabel label = new JLabel("Enter Language Name:");
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        constraints.gridwidth = 2;
+        panel.add(label, constraints);
+
+        LanguageSearchInput = new JTextField(20);
+        constraints.gridx = 0;
+        constraints.gridy = 1;
+        constraints.gridwidth = 2;
+        panel.add(LanguageSearchInput, constraints);
+
+        searchByLanguageButton = new JButton("Search");  //By Language
+        constraints.gridx = 0;
+        constraints.gridy = 2;
+        constraints.gridwidth = 2;
+        panel.add(searchByLanguageButton, constraints);
+
+        JTextArea resultTextArea = new JTextArea(10, 40);
+        JScrollPane scrollPane = new JScrollPane(resultTextArea);
+        constraints.gridx = 0;
+        constraints.gridy = 3;
+        constraints.gridwidth = 2;
+        panel.add(scrollPane, constraints);
+
+        searchByLanguageButton.addActionListener(e -> {
+            String input = LanguageSearchInput.getText();
+
+            List<LanguageModel> filteredLanguages = categorization.filterByLanguage(input);
+
+            if (filteredLanguages.size() == 0) {
+                if(input.isEmpty())
+                    resultTextArea.setText("Please enter a language:");
+                else
+                    resultTextArea.setText("No languages found for the specified name.");
+            } else {
+                StringBuilder resultText = new StringBuilder("Filtered Languages:\n");
+                for (LanguageModel language : filteredLanguages) {
+                    resultText.append(language.getName()).append("\n");
+                    resultText.append("Proficiency Levels and Descriptions:\n");
+                    for (String level : language.getProficiencyLevels()) {
+                        resultText.append(level).append("- \n").append(language.getProficiencyLevelDescription(level)).append("\n");
+                    }
+                }
+                resultTextArea.setText(resultText.toString());
+            }
+        });
+
+        setContentPane(panel);
+        setVisible(true);
+    }
+
+    public JTextField getLanguageSearchInput() {
+        return LanguageSearchInput;
+    }
+
+    public JButton getSearchByLanguageButton() {
+        return searchByLanguageButton;
+    }
+
+    public void ShowLangProfSearchPage()
+    {
+            setTitle("Language and Proficiency Level Search");
+            setSize(400, 300);
+            setLocationRelativeTo(null);
+            setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
+            // Create components
+            JLabel titleLabel = new JLabel("Enter Language and Proficiency Level");
+            languageNameField_LangProf = new JTextField(20);
+            proficiencyLevelField_LangProf = new JTextField(20);
+            searchButton_LangProf = new JButton("Search");
+            resultTextArea_LangProf = new JTextArea(10, 30);
+        resultTextArea_LangProf.setEditable(false); // Make the text area read-only
+
+            // Create a panel for the content
+            JPanel contentPanel = new JPanel();
+            contentPanel.setLayout(new BorderLayout());
+
+            // Create a panel for input fields
+            JPanel inputPanel = new JPanel(new GridLayout(3, 2));
+            inputPanel.add(new JLabel("Language Name:"));
+            inputPanel.add(languageNameField_LangProf);
+            inputPanel.add(new JLabel("Proficiency Level:"));
+            inputPanel.add(proficiencyLevelField_LangProf);
+            inputPanel.add(new JLabel()); // Empty label for spacing
+            inputPanel.add(searchButton_LangProf);
+
+            // Create a scroll pane for the result text area
+            JScrollPane scrollPane = new JScrollPane(resultTextArea_LangProf);
+
+            // Add components to the content panel
+            contentPanel.add(titleLabel, BorderLayout.NORTH);
+            contentPanel.add(inputPanel, BorderLayout.CENTER);
+            contentPanel.add(scrollPane, BorderLayout.SOUTH);
+
+            // Add content panel to the frame
+            setContentPane(contentPanel);
+            setVisible(true);
+    }
+
+    public JTextArea getResultTextArea_LangProf (){
+        return resultTextArea_LangProf;
+    }
+
+    public JButton getSearchButton_LangProf() {
+        return searchButton_LangProf;
+    }
+
+    public JTextField getLanguageNameField_LangProf() {
+        return languageNameField_LangProf;
+    }
+
+    public JTextField getProficiencyLevelField_LangProf() {
+        return proficiencyLevelField_LangProf;
+    }
+
+    public void SearchByRegion(LanguageCatModel categorization) {
+        setTitle("Search By Region");
+        setSize(400, 300);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
+        // Create components
+        JLabel titleLabel = new JLabel("Select a Region or Enter a Region Name");
+        regionComboBox_Region = new JComboBox<>(getAvailableRegions(categorization));
+        searchButton_Region = new JButton("Search");
+        resultTextArea_Region = new JTextArea(10, 30);
+        resultTextArea_Region.setEditable(false); // Make the text area read-only
+
+        // Create a panel for the content
+        JPanel contentPanel = new JPanel();
+        contentPanel.setLayout(new BorderLayout());
+
+        // Create a panel for input fields
+        JPanel inputPanel = new JPanel(new GridLayout(2, 2));
+        inputPanel.add(new JLabel("Select a Region:"));
+        inputPanel.add(regionComboBox_Region);
+        inputPanel.add(new JLabel("Or Enter a Region Name:"));
+        inputPanel.add(searchButton_Region);
+
+        // Create a scroll pane for the result text area
+        JScrollPane scrollPane = new JScrollPane(resultTextArea_Region);
+
+        // Add components to the content panel
+        contentPanel.add(titleLabel, BorderLayout.NORTH);
+        contentPanel.add(inputPanel, BorderLayout.CENTER);
+        contentPanel.add(scrollPane, BorderLayout.SOUTH);
+
+        // Add content panel to the frame
+        setContentPane(contentPanel);
+
+        // Add an action listener to the search button
+        searchButton_Region.addActionListener(e -> {
+            String enteredRegion = (String) regionComboBox_Region.getSelectedItem();
+            if (enteredRegion == null) {
+                enteredRegion = "";
+            }
+
+            List<LanguageModel> result = categorization.getLanguagesByRegion(enteredRegion);
+
+            // Display the result in the text area
+            resultTextArea_Region.setText("Search Results:\n");
+            if (result.size() == 0) {
+                resultTextArea_Region.append("No matching languages found.");
+            } else {
+                for (LanguageModel language : result) {
+                    resultTextArea_Region.append("Language Name: " + language.getName() + "\n");
+                    resultTextArea_Region.append("Region: " + language.getRegion() + "\n");
+                    resultTextArea_Region.append("\n");
+                }
+            }
+        });
+
+        setVisible(true);
+    }
+
+    private String[] getAvailableRegions(LanguageCatModel categorization) {
+        ArrayList<String> regionList = new ArrayList<>();
+
+        // Iterate through the available languages
+        for (LanguageModel language : categorization.getAvailableLanguages()) {
+            String region = language.getRegion();
+
+            // Check if the region is not already in the list
+            if (!regionList.contains(region)) {
+                regionList.add(region);
+            }
+        }
+
+        // Convert the ArrayList to an array of unique regions
+        return regionList.toArray(new String[0]);
+    }
+
+    public JButton getSearchButton_Region() {
+        return searchButton_Region;
+    }
+
+    public JComboBox getRegionComboBox_Region() {
+        return regionComboBox_Region;
+    }
+
+    public JTextArea getResultTextArea_Region() {
+        return resultTextArea_Region;
+    }
 }
