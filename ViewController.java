@@ -84,16 +84,17 @@ public class ViewController extends JFrame {
                                     if(usertype[0] == "Admin") {
                                         v.dispose();
                                         v.openAdminPage();
-                                       /* AdminButtons[0].add(v.getViewLearnersStatsButton());
-                                        AdminButtons[0].add(v.getAddLanguageButton());
-                                        AdminButtons[0].add(v.getAddCourseButton());
-                                        AdminButtons[0].add(v.getAddMaterialsButton());
-                                        AdminButtons[0].add(v.getModifyMaterialsButton());
-                                        AdminButtons[0].add(v.getRemoveLanguageButton());
-                                        AdminButtons[0].add(v.getRemoveCourseButton());*/
-                                        v.getViewLearnersStatsButton().addActionListener(e115 -> {
-                                            {
+/*
+                                        v.getLogOut().addActionListener(e131 -> {
+                                            v.dispose();
+                                            v.displayLogOutMessage();
+                                            v.openHomePage();
+                                        });*/
 
+                                        v.getViewLearnersStatsButton().addActionListener(e115 -> {
+                                            {List<String> learnerEmails = new ArrayList<>();
+                                                learnerEmails = CLearner.getAllLearnerEmails();
+                                                v.openSelectLearnerMenu(learnerEmails);
                                             }
                                         });
 
@@ -109,9 +110,54 @@ public class ViewController extends JFrame {
                                             }
                                         });
 
+                                        v.getAddCourseButton().addActionListener(e114 -> {
+                                            {
+                                                v.displayAddCourseMenu();
+                                                v.getSaveButtonAddCourse().addActionListener(e122 -> {
+                                                   boolean test =  LangCont.updateLanguageCourseDescription(v.getLanguageField_AddCourse().getText(), v.getNameField_AddCourse().getText(),v.getCourseDescriptionField().getText(), "Languages.csv");
+                                                   if(test)
+                                                   v.displaySuccessMessage();
+                                                   else
+                                                       v.displayFailMessage();
+                                                });
+                                            }});
+
+                                        v.getRemoveCourseButton().addActionListener(e123 -> {
+                                            v.displayRemoveCourseMenu();
+                                            v.getRemoveButtonRemoveCourse().addActionListener((ActionListener) e127 -> {
+                                                LangCont.removeLanguageCourse(v.getLanguageField_AddCourse().getText(), v.getNameField_AddCourse().getText(), "Languages.csv");
+                                                v.displayRemovedMessage();
+                                            });
+                                        });
+
+                                        v.getRemoveLanguageButton().addActionListener(e124 -> {
+                                            v.displayRemoveLanguageMenu();
+                                            v.getRemoveButtonRemoveCourse().addActionListener((ActionListener) e128 -> {
+                                                LangCont.removeLanguage(v.getLanguageField_AddCourse().getText(), "Languages.csv");
+                                                v.displayRemovedMessage();
+                                            });
+                                        });
+
+                                        v.getAddMaterialsButton().addActionListener(e125 -> {
+                                            v.displayMaterialMenu();
+                                            v.getSaveLanguageButton().addActionListener(e129 -> {
+                                                if(!v.getBookField().getText().isEmpty())
+                                                    LangCont.addBookTitle(v.getLanguageField_AddCourse().getText(), v.getVideoField().getText(), "Books.csv", "Languages.csv");
+                                                if(!v.getVideoField().getText().isEmpty())
+                                                LangCont.addVideoLink(v.getLanguageField_AddCourse().getText(), v.getVideoField().getText(), "Videos.csv", "Languages.csv");
+                                                v.displaySuccessMessage();
+                                            });
+                                        });
+
+                                        v.getModifyMaterialsButton().addActionListener(e126 -> {
+
+                                        });
                                     }
                                     else if(usertype[0] == "Learner"){
-                                        LearnerEmail[0] = v.getEmailField().getText();
+
+
+
+                                                LearnerEmail[0] = v.getEmailField().getText();
                                         v.dispose();
                                         v.openLearnerPage();
                                         v.getPopularityButton().addActionListener(e112 -> {
@@ -130,37 +176,53 @@ public class ViewController extends JFrame {
                                             }
                                         });
 
-                                    v.getViewAllButton().addActionListener(new ActionListener() {
-                                        ArrayList<String> enrollmentCourses = new ArrayList<>();
-                                        @Override
-                                        public void actionPerformed(ActionEvent e116) {
-                                            {
-                                                v.LearnerViewAllPage(LangCatMod);
-                                                for(JButton EnButton : v.getEnrollButtons()) {
-                                                    EnButton.addActionListener(e110 -> {
-                                                        String[] chunks = EnButton.getText().split(" ");
-                                                        enrollmentCourses.add(chunks[2]);
-                                                        System.out.println("We've been here! " + chunks[2]);
-                                                        v.displaySuccessMessage();
-                                                    });
-                                                }
-                                                CLearner.enrollments(LearnerEmail[0], enrollmentCourses);
-                                                ArrayList<String> favoriteCourses = new ArrayList<>();
+                                       /* v.getLogOut().addActionListener(e131 -> {
+                                            v.dispose();
+                                            v.displayLogOutMessage();
+                                            v.openHomePage();
+                                        });*/
+                                        v.getViewLearnerProfile().addActionListener((ActionListener) e130 -> {
+                                            //I have LearnerEmail[0]
+                                            LearnerController LearnerObj = new LearnerController();
+                                            LearnerObj.retrieveCredentials(LearnerEmail[0]);
+                                            v.displayLearnerInformation(LearnerObj.getLearnerName(), LearnerObj.getLearnerEmail(), LearnerObj.getLearnerUsername(), LearnerObj.getEnrollmentsByEmail(LearnerEmail[0]) , LearnerObj.getFavoritesByEmail(LearnerEmail[0]));
+                                        });
 
-                                                for (JButton FavButton : v.getFavButtons()) {
-                                                    FavButton.addActionListener(e19 -> {
-                                                        String[] chunks = FavButton.getText().split(" ");
-                                                        if (chunks.length >= 3 && !favoriteCourses.contains(chunks[3])) {
-                                                            favoriteCourses.add(chunks[3]);
-                                                            System.out.println("We've been here as well, " + chunks[3]);
-                                                            v.displaySuccessMessage();
+                                                v.getViewAllButton().addActionListener(new ActionListener() {
+                                                    //  ArrayList<String> enrollmentCourses = new ArrayList<>();
+                                                    @Override
+                                                    public void actionPerformed(ActionEvent e116) {
+                                                        {
+                                                            ArrayList<String> enrollmentCourses = new ArrayList<>();
+                                                            v.LearnerViewAllPage(LangCatMod);
+                                                            for (JButton EnButton : v.getEnrollButtons()) {
+                                                                EnButton.addActionListener(e110 -> {
+                                                                    String[] chunks = EnButton.getText().split(" ");
+                                                                    enrollmentCourses.add(chunks[2]);
+                                                                    System.out.println("We've been here! " + chunks[2]);
+                                                                    v.displaySuccessMessage();
+                                                                    CLearner.enrollments(LearnerEmail[0], enrollmentCourses);
+                                                                    enrollmentCourses.clear();
+                                                                });
+                                                            }
+                                                            // CLearner.enrollments(LearnerEmail[0], enrollmentCourses);
+                                                            ArrayList<String> favoriteCourses = new ArrayList<>();
+
+                                                            for (JButton FavButton : v.getFavButtons()) {
+                                                                FavButton.addActionListener(e19 -> {
+                                                                    String[] chunks = FavButton.getText().split(" ");
+                                                                    if (chunks.length >= 3 /*&& !favoriteCourses.contains(chunks[3])*/) {
+                                                                        favoriteCourses.add(chunks[3]);
+                                                                        System.out.println("We've been here as well, " + chunks[3]);
+                                                                        v.displaySuccessMessage();
+                                                                        CLearner.favorites(LearnerEmail[0], favoriteCourses);
+                                                                        favoriteCourses.clear();
+                                                                    }
+                                                                });
+                                                            }
                                                         }
-                                                    });
-                                                }
-                                                CLearner.favorites(LearnerEmail[0], favoriteCourses);
-                                            }
-                                        }
-                                    });
+                                                    }
+                                                });
 
                                     v.getProficiencyButton().addActionListener(e18 -> {
                                         {
@@ -183,9 +245,11 @@ public class ViewController extends JFrame {
                                                             enrollmentCourses.add(chunks[2]);
                                                             System.out.println("We've been here! " + chunks[2]);
                                                             v.displaySuccessMessage();
+                                                            CLearner.enrollments(LearnerEmail[0], enrollmentCourses);
+                                                            enrollmentCourses.clear();
                                                         });
                                                     }
-                                                    CLearner.enrollments(LearnerEmail[0], enrollmentCourses);
+                                                    //CLearner.enrollments(LearnerEmail[0], enrollmentCourses);
                                                     ArrayList<String> favoriteCourses = new ArrayList<>();
 
                                                     for (JButton FavButton : v.getFavButtons()) {
@@ -195,10 +259,12 @@ public class ViewController extends JFrame {
                                                                 favoriteCourses.add(chunks[3]);
                                                                 System.out.println("We've been here as well, " + chunks[3]);
                                                                 v.displaySuccessMessage();
+                                                                CLearner.favorites(LearnerEmail[0], favoriteCourses);
+                                                                favoriteCourses.clear();
                                                             }
                                                         });
                                                     }
-                                                    CLearner.favorites(LearnerEmail[0], favoriteCourses);
+                                                   // CLearner.favorites(LearnerEmail[0], favoriteCourses);
                                                 });
                                     });
 

@@ -22,6 +22,13 @@ import java.util.List;
 //a User can (maybe) un-favorite a course
 
 public class View extends JFrame {
+    private JTextField videoField;
+    private JTextField bookField;
+    private JButton RemoveButtonRemoveCourse;
+    private JTextField languageField_AddCourse;
+    private JTextField nameField_AddCourse;
+    private JTextField courseDescriptionField;
+    private JButton saveButtonAddCourse;
     private JComboBox regionComboBox_Region;
     private JButton searchButton_Region;
     private JTextArea resultTextArea_Region;
@@ -59,12 +66,12 @@ public class View extends JFrame {
     private JTextField maxPopularityField;
     private JButton searchByRangeButton;
     private JButton searchByValueButton;
-
+    private JButton ViewLearnerProfile;
+    private JButton logOut;
 
     View() {
         initializeComponents();
     }
-
     private void initializeComponents() {
         // Set up the frame
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -444,7 +451,7 @@ public class View extends JFrame {
         learnPage.setLayout(new BorderLayout());
         buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
-
+        ViewLearnerProfile = new JButton("View Profile");
         viewAllButton = new JButton("View All");
         popularityButton = new JButton("Popularity");
         proficiencyButton = new JButton("Proficiency");
@@ -452,17 +459,21 @@ public class View extends JFrame {
         languageProficiencyButton = new JButton("Language Proficiency");
         regionButton = new JButton("Region");
 
+        buttonPanel.add(ViewLearnerProfile);
         buttonPanel.add(viewAllButton);
         buttonPanel.add(popularityButton);
         buttonPanel.add(proficiencyButton);
         buttonPanel.add(languageButton);
         buttonPanel.add(languageProficiencyButton);
         buttonPanel.add(regionButton);
+       // buttonPanel.add(logOut);
 
         learnPage.add(buttonPanel, BorderLayout.CENTER);
         learnPage.setVisible(true);
     }
-
+    public JButton getViewLearnerProfile() {
+        return ViewLearnerProfile;
+    }
     public JButton getViewAllButton() {
         return viewAllButton;
     }
@@ -972,4 +983,231 @@ public class View extends JFrame {
     public JTextArea getResultTextArea_Region() {
         return resultTextArea_Region;
     }
+
+    public void displayAddCourseMenu() {
+        JFrame adminMenu = new JFrame("Admin Menu");
+        adminMenu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        adminMenu.setSize(400, 300);
+        adminMenu.setLayout(new BorderLayout());
+
+        JPanel inputPanel = new JPanel(new GridLayout(4, 2));
+
+        // Create text fields
+        languageField_AddCourse = new JTextField();
+        nameField_AddCourse = new JTextField();
+        courseDescriptionField = new JTextField();
+
+        // Create labels for text fields
+        inputPanel.add(new JLabel("Language:"));
+        inputPanel.add(languageField_AddCourse);
+        inputPanel.add(new JLabel("Course Name:"));
+        inputPanel.add(nameField_AddCourse);
+        inputPanel.add(new JLabel("Course Description:"));
+        inputPanel.add(courseDescriptionField);
+
+        // Create save button
+        saveButtonAddCourse = new JButton("Save");
+
+        inputPanel.add(saveButtonAddCourse);
+
+        adminMenu.add(inputPanel, BorderLayout.CENTER);
+        adminMenu.setVisible(true);
+    }
+
+    public JButton getSaveButtonAddCourse() {
+        return saveButtonAddCourse;
+    }
+
+    public JTextField getCourseDescriptionField() {
+        return courseDescriptionField;
+    }
+
+    public JTextField getLanguageField_AddCourse(){
+        return languageField_AddCourse;
+    }
+    public JTextField getNameField_AddCourse() {
+        return nameField_AddCourse;
+    }
+    public void displayFailMessage() {
+        JOptionPane.showMessageDialog(this,
+                "Course not added. Please create the language first, then try again",
+                "Failed",
+                JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void displayRemovedMessage() {
+        JOptionPane.showMessageDialog(this,
+                "Successfully Removed!",
+                "Removed",
+                JOptionPane.INFORMATION_MESSAGE);
+    }
+    public void displayLogOutMessage() {
+        JOptionPane.showMessageDialog(this,
+                "You've successfully logged out!",
+                "Logged Out",
+                JOptionPane.INFORMATION_MESSAGE);
+    }
+
+
+    public void displayRemoveCourseMenu() {
+        JFrame adminMenu = new JFrame("Admin Menu");
+        adminMenu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        adminMenu.setSize(400, 300);
+        adminMenu.setLayout(new BorderLayout());
+
+        JPanel inputPanel = new JPanel(new GridLayout(4, 2));
+
+        // Create text fields
+        languageField_AddCourse = new JTextField();
+        nameField_AddCourse = new JTextField();
+
+        // Create labels for text fields
+        inputPanel.add(new JLabel("Language:"));
+        inputPanel.add(languageField_AddCourse);
+        inputPanel.add(new JLabel("Course Name:"));
+        inputPanel.add(nameField_AddCourse);
+
+        // Create remove button
+        RemoveButtonRemoveCourse = new JButton("Remove");
+
+        inputPanel.add(RemoveButtonRemoveCourse);
+
+        adminMenu.add(inputPanel, BorderLayout.CENTER);
+        adminMenu.setVisible(true);
+    }
+
+    public JButton getRemoveButtonRemoveCourse() {
+        return RemoveButtonRemoveCourse;
+    }
+
+    public void displayRemoveLanguageMenu() {
+        JFrame adminMenu = new JFrame("Admin Menu");
+        adminMenu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        adminMenu.setSize(400, 300);
+        adminMenu.setLayout(new BorderLayout());
+
+        JPanel inputPanel = new JPanel(new GridLayout(4, 2));
+
+        // Create text fields
+        languageField_AddCourse = new JTextField();
+
+        // Create labels for text fields
+        inputPanel.add(new JLabel("Language:"));
+        inputPanel.add(languageField_AddCourse);
+
+        // Create remove button
+        RemoveButtonRemoveCourse = new JButton("Remove");
+
+        inputPanel.add(RemoveButtonRemoveCourse);
+
+        adminMenu.add(inputPanel, BorderLayout.CENTER);
+        adminMenu.setVisible(true);
+    }
+
+    public void displayMaterialMenu() {
+        setTitle("Material Menu");
+        setSize(400, 200);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(null);
+
+        JPanel inputPanel = new JPanel(new GridLayout(4, 2));
+
+        // Create text fields
+        languageField_AddCourse = new JTextField();
+        videoField = new JTextField();
+        bookField = new JTextField();
+
+        // Create labels for text fields
+        inputPanel.add(new JLabel("Language:"));
+        inputPanel.add(languageField_AddCourse);
+        inputPanel.add(new JLabel("Video:"));
+        inputPanel.add(videoField);
+        inputPanel.add(new JLabel("Book:"));
+        inputPanel.add(bookField);
+
+        // Create save button
+        saveLanguageButton = new JButton("Save");
+
+        inputPanel.add(new JLabel()); // Empty label for spacing
+        inputPanel.add(saveLanguageButton);
+
+        add(inputPanel, BorderLayout.CENTER);
+        setVisible(true);
+    }
+
+    public JTextField getBookField() {
+        return bookField;
+    }
+
+    public JTextField getVideoField() {
+        return videoField;
+    }
+
+    public void displayLearnerInformation(String name, String email, String username, List<String> enrolledCourses, List<String> favoriteCourses) {
+        setTitle("Learner Information");
+        setSize(400, 300);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(null);
+
+        JPanel contentPanel = new JPanel();
+        contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
+
+        JLabel NameLabel = new JLabel("Name: " + name);
+        JLabel emailLabel = new JLabel("Email: " + email);
+        JLabel usernameLabel = new JLabel("Username: " + username);
+
+        contentPanel.add(NameLabel);
+        contentPanel.add(emailLabel);
+        contentPanel.add(usernameLabel);
+
+        JLabel enrolledCoursesLabel = new JLabel("Enrolled Courses:");
+        contentPanel.add(enrolledCoursesLabel);
+
+        for (String course : enrolledCourses) {
+            JLabel courseLabel = new JLabel("- " + course);
+            contentPanel.add(courseLabel);
+        }
+
+        JLabel favoriteCoursesLabel = new JLabel("Favorite Courses:");
+        contentPanel.add(favoriteCoursesLabel);
+
+        for (String course : favoriteCourses) {
+            JLabel courseLabel = new JLabel("- " + course);
+            contentPanel.add(courseLabel);
+        }
+
+        JScrollPane scrollPane = new JScrollPane(contentPanel);
+        setContentPane(scrollPane);
+        setVisible(true);
+    }
+    public void openSelectLearnerMenu(List<String> learnerEmails) {
+        JFrame selectLearnerFrame = new JFrame("Select Learner");
+        selectLearnerFrame.setSize(400, 300);
+        selectLearnerFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+        JLabel titleLabel = new JLabel("Select a Learner:");
+        panel.add(titleLabel);
+
+        for (String learnerEmail : learnerEmails) {
+            JButton learnerButton = new JButton(learnerEmail);
+            learnerButton.addActionListener(e -> {
+                // Perform actions when a learner is selected
+                // You can add more logic here
+                System.out.println("Selected Learner: " + learnerEmail);
+                LearnerController L = new LearnerController();
+                L.retrieveCredentials(learnerEmail);
+                displayLearnerInformation(L.getLearnerName(), L.getLearnerEmail(), L.getLearnerUsername(), L.getEnrollmentsByEmail(learnerEmail) , L.getFavoritesByEmail(learnerEmail));
+               // selectLearnerFrame.dispose();  // Close the frame after selection
+            });
+            panel.add(learnerButton);
+        }
+
+        selectLearnerFrame.add(panel);
+        selectLearnerFrame.setLocationRelativeTo(null);
+        selectLearnerFrame.setVisible(true);
+    }
+
 }
