@@ -43,23 +43,4 @@ public class EnrollmentDialog extends JDialog {
         add(addToFavoritesCheckbox);
         add(okayButton);
     }
-
-    public static void main(String[] args) {
-        // Test the dialog
-        JFrame frame = new JFrame();
-        JButton openDialogButton = new JButton("Open Dialog");
-        openDialogButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                EnrollmentDialog dialog = new EnrollmentDialog(frame, "English");
-                dialog.setVisible(true);
-            }
-        });
-
-        frame.setLayout(new FlowLayout());
-        frame.add(openDialogButton);
-        frame.setSize(300, 200);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
-    }
 }

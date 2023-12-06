@@ -2,53 +2,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LanguageCatModel { //LanguageCategorization Model
-    private static final int MAX_LANGUAGES = 100; // Maximum number of languages (adjust as needed)
     private List<LanguageModel> availableLanguages;
 
     public LanguageCatModel() {
         availableLanguages = new ArrayList<>();
     }
 
-    public int getLanguageCount() {
-        return availableLanguages.size();
-    }
-
-    // Method to add a language to the categorization
-    public void addLanguage(LanguageModel language) {
-        if (availableLanguages.size() < MAX_LANGUAGES) {
-            availableLanguages.add(language);
-        }
-    }
-
-    public void removeLanguage(LanguageModel language) {
-        availableLanguages.remove(language);
-    }
-
     // Method to get all available languages
     public List<LanguageModel> getAvailableLanguages() {
         return new ArrayList<>(availableLanguages);
-    }
-
-    // Method to display languages with descriptions
-    public void displayLanguagesWithDescriptions() {
-        for (LanguageModel language : availableLanguages) {
-            System.out.println("Language: " + language.getName());
-            System.out.println("Description: " + language.getDescription());
-            System.out.println();
-        }
-    }
-
-    // Filter languages by region
-    public List<LanguageModel> filterByRegion(String region) {
-        List<LanguageModel> filteredLanguages = new ArrayList<>();
-
-        for (LanguageModel language : availableLanguages) {
-            if (region == null || language.getRegion().equalsIgnoreCase(region)) {
-                filteredLanguages.add(language);
-            }
-        }
-
-        return filteredLanguages;
     }
 
     // Filter languages by proficiency levels

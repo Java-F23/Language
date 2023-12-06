@@ -47,13 +47,11 @@ public class ViewController extends JFrame {
                 adminButton.addActionListener(e119 -> {
                     // Display options for Admin (sign in or sign up)
                     v.displaySignInSignUpOptions();
-                    //System.out.println(bDisplayUserOptions.get(0).getText());
                     usertype[0] = "Admin"; // Modify the first element of the array
                 });
 
                 learnerButton.addActionListener(e118 -> {
                     v.displaySignInSignUpOptions();
-                    //System.out.println(bDisplayUserOptions.get(1).getText());
                     // Display options for Learner (sign in or sign up)
                     usertype[0] = "Learner"; // Modify the first element of the array
                 });
@@ -84,12 +82,6 @@ public class ViewController extends JFrame {
                                     if(usertype[0] == "Admin") {
                                         v.dispose();
                                         v.openAdminPage();
-/*
-                                        v.getLogOut().addActionListener(e131 -> {
-                                            v.dispose();
-                                            v.displayLogOutMessage();
-                                            v.openHomePage();
-                                        });*/
 
                                         v.getViewLearnersStatsButton().addActionListener(e115 -> {
                                             {List<String> learnerEmails = new ArrayList<>();
@@ -135,6 +127,7 @@ public class ViewController extends JFrame {
                                             v.getRemoveButtonRemoveCourse().addActionListener((ActionListener) e128 -> {
                                                 LangCont.removeLanguage(v.getLanguageField_AddCourse().getText(), "Languages.csv");
                                                 v.displayRemovedMessage();
+
                                             });
                                         });
 
@@ -144,7 +137,7 @@ public class ViewController extends JFrame {
                                                 if(!v.getBookField().getText().isEmpty())
                                                     LangCont.addBookTitle(v.getLanguageField_AddCourse().getText(), v.getVideoField().getText(), "Books.csv", "Languages.csv");
                                                 if(!v.getVideoField().getText().isEmpty())
-                                                LangCont.addVideoLink(v.getLanguageField_AddCourse().getText(), v.getVideoField().getText(), "Videos.csv", "Languages.csv");
+                                                    LangCont.addVideoLink(v.getLanguageField_AddCourse().getText(), v.getVideoField().getText(), "Videos.csv", "Languages.csv");
                                                 v.displaySuccessMessage();
                                             });
                                         });
@@ -176,11 +169,6 @@ public class ViewController extends JFrame {
                                             }
                                         });
 
-                                       /* v.getLogOut().addActionListener(e131 -> {
-                                            v.dispose();
-                                            v.displayLogOutMessage();
-                                            v.openHomePage();
-                                        });*/
                                         v.getViewLearnerProfile().addActionListener((ActionListener) e130 -> {
                                             //I have LearnerEmail[0]
                                             LearnerController LearnerObj = new LearnerController();
@@ -189,7 +177,6 @@ public class ViewController extends JFrame {
                                         });
 
                                                 v.getViewAllButton().addActionListener(new ActionListener() {
-                                                    //  ArrayList<String> enrollmentCourses = new ArrayList<>();
                                                     @Override
                                                     public void actionPerformed(ActionEvent e116) {
                                                         {
@@ -205,7 +192,6 @@ public class ViewController extends JFrame {
                                                                     enrollmentCourses.clear();
                                                                 });
                                                             }
-                                                            // CLearner.enrollments(LearnerEmail[0], enrollmentCourses);
                                                             ArrayList<String> favoriteCourses = new ArrayList<>();
 
                                                             for (JButton FavButton : v.getFavButtons()) {
@@ -249,7 +235,6 @@ public class ViewController extends JFrame {
                                                             enrollmentCourses.clear();
                                                         });
                                                     }
-                                                    //CLearner.enrollments(LearnerEmail[0], enrollmentCourses);
                                                     ArrayList<String> favoriteCourses = new ArrayList<>();
 
                                                     for (JButton FavButton : v.getFavButtons()) {
@@ -264,7 +249,6 @@ public class ViewController extends JFrame {
                                                             }
                                                         });
                                                     }
-                                                   // CLearner.favorites(LearnerEmail[0], favoriteCourses);
                                                 });
                                     });
 
@@ -305,26 +289,6 @@ public class ViewController extends JFrame {
                             }
                         });
 
-                    }
-                });
-
-
-                // For sign in button in displaySignInSignUpOptions
-                bDisplayUserOptions.get(1).addActionListener(e16 -> {
-                    {
-                        JButton signUp;
-                       signUp = v.openSignUpPage();
-
-                        // For sign in button in displaySignInSignUpOptions
-                        signUp.addActionListener(e161 -> {
-                            {
-                                //String name, String email, String username, String password
-                                if(usertype[0] == "Learner")
-                                    L.saveCredentials(v.getNameField().getText(), v.getEmailField().getText(), v.getUsernameField().getText(), String.valueOf(v.getPasswordField().getPassword()));
-                                else if(usertype[0] =="Admin")
-                                    A.saveCredentials(v.getNameField().getText(), v.getEmailField().getText(), v.getUsernameField().getText(), String.valueOf(v.getPasswordField().getPassword()));
-                            }
-                        });
                     }
                 });
 

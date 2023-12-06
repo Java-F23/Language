@@ -7,7 +7,6 @@ public class LanguageModel {
     private String description;
     private int popularity;
     private Map<String, String> proficiencyLevelDescriptions;
-    private Map<String, CourseModel> courses;
 
     public LanguageModel(String name, String region, String description, int popularity) {
         if (name == null || region == null) {
@@ -20,7 +19,6 @@ public class LanguageModel {
         setPopularity(popularity);
 
         proficiencyLevelDescriptions = new HashMap<>();
-        courses = new HashMap<>();
     }
 
     public LanguageModel(String name, String region, String description, int popularity, String profLevels) {
@@ -34,7 +32,6 @@ public class LanguageModel {
         setPopularity(popularity);
 
         proficiencyLevelDescriptions = new HashMap<>();
-        courses = new HashMap<>();
 
         List<String> proficiencyLevels = Arrays.asList(profLevels.split("\\s*,\\s*"));
         proficiencyLevelDescriptions.putAll(proficiencyLevels.stream()
@@ -54,17 +51,11 @@ public class LanguageModel {
         return region;
     }
 
-    public void setRegion(String region) {
-        this.region = region;
-    }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     public int getPopularity() {
         return popularity;
@@ -80,23 +71,6 @@ public class LanguageModel {
     public void addProficiencyLevel(String level, String description) {
         proficiencyLevelDescriptions.put(level, description);
     }
-
-    public void updateProficiencyLevelDescription(String level, String newDescription) {
-        if (proficiencyLevelDescriptions.containsKey(level)) {
-            proficiencyLevelDescriptions.put(level, newDescription);
-        } else {
-            throw new IllegalArgumentException("Proficiency level not found: " + level);
-        }
-    }
-
-    public void addCourse(String courseName, CourseModel courseModel) {
-        courses.put(courseName, courseModel);
-    }
-
-    public CourseModel getCourse(String courseName) {
-        return courses.get(courseName);
-    }
-
     public List<String> getProficiencyLevels() {
         return new ArrayList<>(proficiencyLevelDescriptions.keySet());
     }
@@ -108,7 +82,6 @@ public class LanguageModel {
             throw new IllegalArgumentException("Proficiency level not found: " + proficiencyLevel);
         }
     }
-
     public Map<String, String> getProficiencyLevelDescriptions() {
         return new HashMap<>(proficiencyLevelDescriptions);
     }

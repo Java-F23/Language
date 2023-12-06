@@ -4,13 +4,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 public class LanguageController {
-//stopped here. Trying to implement the popularity function, must retrieve list of languages first, place in
-    //categorization, then continue. Test if retreiveLanguages method works or not
-    //Passes an array list of all languages saved in file
-
 public ArrayList<LanguageModel> retrieveLanguages() {
     ArrayList<LanguageModel> languages = new ArrayList<>();
     File file = new File("Languages.csv");
@@ -50,34 +45,6 @@ public ArrayList<LanguageModel> retrieveLanguages() {
     }
     return languages;
 }
-
-    public LanguageModel createLanguageFromFields(JPanel panel, JTextField nameField, JTextField regionField,
-                                                  JTextField descriptionField, JTextField popularityField,
-                                                  Map<String, JTextField> proficiencyLevelFields) {
-        int result = JOptionPane.showConfirmDialog(null, panel, "Create Language",
-                JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-
-        if (result == JOptionPane.OK_OPTION) {
-            String name = nameField.getText();
-            String region = regionField.getText();
-            String description = descriptionField.getText();
-            int popularity = Integer.parseInt(popularityField.getText());
-
-            LanguageModel language = new LanguageModel(name, region, description, popularity);
-
-            // Add proficiency levels
-            for (Map.Entry<String, JTextField> entry : proficiencyLevelFields.entrySet()) {
-                String proficiencyLevel = entry.getKey();
-                String proficiencyDescription = entry.getValue().getText();
-                language.addProficiencyLevel(proficiencyLevel, proficiencyDescription);
-            }
-
-            return language;
-        }
-
-        return null;
-    }
-
     public void saveLanguageToFile(LanguageModel language) {
         File file = new File("Languages.csv");
 

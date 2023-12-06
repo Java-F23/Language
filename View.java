@@ -6,21 +6,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-//Note: Back button, frames are not resizable, and pages should close after we open a new page, or at least
-//disappear from view.
-//Display welcome page
-//Home page:
-//      //First chooses to sign in or sign up as Admin/Learner
-//First Page:
-//     Title, a number of buttons (search buttons, view all (tabular view)
-//All other pages operated based on whether it's a user or an admin (they're all functions).
-//A user can search by language, an admin can only view all languages.
-//An Admin can view a list of learner names, their favorite courses, their completed and in progress courses
-//and courses coming up
-//An Admin can view the learner details, but cannot view the learners' passwords
-//A user can view their favorite courses, their past, in progress, and future courses
-//a User can (maybe) un-favorite a course
-
 public class View extends JFrame {
     private JTextField videoField;
     private JTextField bookField;
@@ -82,21 +67,6 @@ public class View extends JFrame {
         signInButton = new JButton("Sign In");
         signUpButton = new JButton("Sign Up");
 
-        // Add action listeners to the sign in and sign up buttons
-        /*signInButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Sign In button clicked");
-            }
-        });
-
-        signUpButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Sign Up button clicked");
-            }
-        });*/
-
         // Create a panel for the buttons
         optionsPanel = new JPanel();
         optionsPanel.add(signInButton);
@@ -113,13 +83,6 @@ public class View extends JFrame {
         dialog.pack();
         dialog.setLocationRelativeTo(this);
         dialog.setVisible(true);
-
-        // Return the buttons
-     /*   ArrayList<JButton> buttons = new ArrayList<>();
-        buttons.add(signInButton);
-        buttons.add(signUpButton);
-
-        return buttons;*/
     }
 
     public JButton getSignInButton() {
@@ -129,14 +92,6 @@ public class View extends JFrame {
     public JButton getSignUpButton() {
         return signUpButton;
     }
-/*
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            View view = new View();
-            view.PopularityOptionsPage();
-            view.setVisible(true);
-        });
-    }*/
 
     public JButton displayWelcomeMessage() {
         // Create a JPanel for the content panel
@@ -198,10 +153,6 @@ public class View extends JFrame {
         buttons.add(adminButton);
         buttons.add(learnerButton);
         return buttons;
-    }
-
-    public JPanel getOptionsPanel() {
-        return optionsPanel;
     }
 
     //First Admin page:
@@ -976,14 +927,6 @@ public class View extends JFrame {
         return searchButton_Region;
     }
 
-    public JComboBox getRegionComboBox_Region() {
-        return regionComboBox_Region;
-    }
-
-    public JTextArea getResultTextArea_Region() {
-        return resultTextArea_Region;
-    }
-
     public void displayAddCourseMenu() {
         JFrame adminMenu = new JFrame("Admin Menu");
         adminMenu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -1039,12 +982,6 @@ public class View extends JFrame {
         JOptionPane.showMessageDialog(this,
                 "Successfully Removed!",
                 "Removed",
-                JOptionPane.INFORMATION_MESSAGE);
-    }
-    public void displayLogOutMessage() {
-        JOptionPane.showMessageDialog(this,
-                "You've successfully logged out!",
-                "Logged Out",
                 JOptionPane.INFORMATION_MESSAGE);
     }
 
@@ -1200,7 +1137,6 @@ public class View extends JFrame {
                 LearnerController L = new LearnerController();
                 L.retrieveCredentials(learnerEmail);
                 displayLearnerInformation(L.getLearnerName(), L.getLearnerEmail(), L.getLearnerUsername(), L.getEnrollmentsByEmail(learnerEmail) , L.getFavoritesByEmail(learnerEmail));
-               // selectLearnerFrame.dispose();  // Close the frame after selection
             });
             panel.add(learnerButton);
         }
